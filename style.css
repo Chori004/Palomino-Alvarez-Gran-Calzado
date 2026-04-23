@@ -10,6 +10,7 @@ header{
     grid-template-columns: 2fr 2fr 2fr;
     align-items: center;
     align-content: center;
+    background-color: #e7e7e7;
 }
 .titulo{
     margin: 3px;
@@ -42,4 +43,42 @@ nav a{
     color: #141921;
     text-decoration: none;
 }
+#foto_zapato{
+    width: 100%;
+    height: auto;
+}
 
+footer{
+    color: white;
+    background-color: black;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 100px;
+}
+.columna_1{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.columna_2{
+    display: grid;
+    align-items: center;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+}
+.logos{
+    text-align: center;
+    align-content: center;
+    background-color: orange;
+    height: 60px;
+}
+.logos svg{
+    width: 40px;
+    height: auto;
+}
+#lista_footer{
+    list-style: none;
+}
