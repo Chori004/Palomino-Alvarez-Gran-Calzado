@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    border: 2px solid black;
+    height: 80px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    align-items: center;
+    align-content: center;
+}
+.titulo{
+    margin: 3px;
+    font-family: "Noto Sans", sans-serif;
+}
+#lista_nav{
+    list-style: none;
+    display: grid;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+}
+.login_carrito{
+    list-style: none;
+    display: grid;
+    text-align: center;
+    grid-auto-flow: column;
+    justify-content: end;
+    gap: 10px;
+    padding: 40px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+}
+nav a{
+    color: #222224;
+    text-decoration: none;
+}
+.login_carrito a{
+    color: #141921;
+    text-decoration: none;
+}
+
