@@ -83,7 +83,16 @@ create table detalle_reserva
   foreign key (id_reserva_fk) references reserva(id_reserva)
 );
 
-
+create table carrito 
+(
+  id_carrito int primary key auto_increment,
+  id_usuario_fk int not null,
+  id_variante_fk int not null,
+  cantidad int not null default 1,
+  fecha_agregado datetime default current_timestamp,
+  foreign key (id_usuario_fk) references usuario(id_usuario),
+  foreign key (id_variante_fk) references producto_variante(id_variante)
+);
 
 
 
