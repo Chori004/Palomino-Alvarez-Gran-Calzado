@@ -71,6 +71,7 @@ empresa_transporte_fk int not null,
 fecha_entrega_estimada date,
 id_usuario_fk int not null,
 foreign key (id_usuario_fk) references usuario(id_usuario)
+foreign key(empresa_transporte_fk) references transporte(id_transporte)
 );
 
 create table detalle_pedido
