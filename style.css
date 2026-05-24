@@ -3,7 +3,7 @@
     padding: 0;
 }
 body {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 #lista_nav{
@@ -43,6 +43,7 @@ footer{
     background-color: black;
     display: grid;
     grid-template-columns: 50% 50%;
+    margin-bottom: 0;
 }
 .columna_1{
     display: grid;
@@ -70,5 +71,48 @@ footer{
 }
 #lista_footer{
     list-style: none;
+}
+
+.carousel-altura {
+    height: 800px;
+}
+@media (min-width: 993px) {
+    #carouselExampleAutoplaying {
+        height: 100% !important;
+    }
+    footer h4 { font-size: 24px; }
+    footer li { font-size: 16px; }
+    .logos svg { width: 32px; height: 32px; }
+}
+@media (max-width: 992px) {
+    #carouselExampleAutoplaying {
+        height: 100% !important;
+    }
+    footer h4 { font-size: 20px; }
+    footer li { font-size: 14px; }
+    .logos svg { width: 28px; height: 28px; }
+}
+@media (max-width: 768px) {
+    #carouselExampleAutoplaying {
+        height: 100% !important;
+    }
+    footer h4 { font-size: 16px; }
+    footer li { font-size: 12px; }
+    .logos svg { width: 26px; height: 26px; }
+}
+@media (max-width: 576px) {
+    #carouselExampleAutoplaying {
+        height: 100% !important;
+        width: 100% !important;
+        overflow: hidden;
+    }
+    footer h4 { font-size: 12px; }
+    footer li { font-size: 10px; }
+    .logos svg { width: 24px; height: 24px; }
+}
+
+#imagen1, #imagen2, #imagen3, #imagen4, #imagen5, #imagen6, #imagen7, #imagen8, #imagen9, #imagen10, #imagen11, #imagen12, #imagen13,#imagen14,#imagen15,#imagen16{
+    height: 500px;
+    width: auto;
 }
 

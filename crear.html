@@ -14,22 +14,18 @@
 
 
     <div class="d-flex align-items-center mb-3 gap-3">
-      <label for="usuario2" style="width: 140px;">Nombre de usuario</label>
-      <input type="text" id="usuario2" class="form-control" style="width: 200px;">
+      <label for="nombre" style="width: 140px;">Nombre</label>
+      <input type="text" id="nombre" class="form-control" style="width: 200px;">
 
-      <label for="contraseña" style="width: 90px;">Contraseña</label>
-      <div class="input-group" style="width: 200px;">
-        <input type="password" id="contraseña" class="form-control">
-        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
-          <i class="bi bi-eye"></i>
-        </button>
-      </div>
+      <label for="apellido" style="width: 140px;">Apellido</label>
+      <input type="text" id="apellido" class="form-control" style="width: 200px;">
+  
     </div>
 
     
     <div class="d-flex align-items-center mb-3 gap-3">
       <label for="email" style="width: 140px;">Email</label>
-      <input type="text" id="email" class="form-control" style="width: 200px;">
+      <input type="text" id="email" class="form-control" style="width: 200px;" placeholder="ejemplo@empresa.com">
 
       <label style="width: 90px;">Genero</label>
       <div class="d-flex gap-3">
@@ -43,11 +39,106 @@
         </div>
       </div>
     </div>
+    
+
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <label for="telefono" style="width: 140px;">Teléfono</label>
+      <input type="tel" id="telefono" class="form-control" style="width:200px" placeholder="Ej: 1112345678">
+      <script>
+      document.getElementById('telefono').addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9+\- ]/g, '');
+      });
+      </script>
+      <label for="direccion" style="width: 140px;">Dirección</label>
+      <input type="text" id="direccion" class="form-control" style="width: 200px;" placeholder="Ej: Av. Cabildo 1979">
+    </div>
+
+
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <label for="provincia" style="width: 140px;">Provincia</label>
+      <select class="form-select" aria-label="Default select example" style="width: 200px;">
+        <option selected>Seleccione una provincia</option>
+        <option value="1">Buenos Aires</option>
+        <option value="2">Catamarca</option>
+        <option value="3">Chaco</option>
+        <option value="4">Chubut</option>
+        <option value="5">Ciudad Autónoma de Buenos Aires</option>
+        <option value="6">Córdoba</option>
+        <option value="7">Corrientes</option>
+        <option value="8">Entre Ríos</option>
+        <option value="9">Formosa</option>
+        <option value="10">Jujuy</option>
+        <option value="11">La Pampa</option>
+        <option value="12">La Rioja</option>
+        <option value="13">Mendoza</option>
+        <option value="14">Misiones</option>
+        <option value="15">Neuquén</option>
+        <option value="16">Río Negro</option>
+        <option value="17">Salta</option>
+        <option value="18">San Juan</option>
+        <option value="19">San Luis</option>
+        <option value="20">Santa Cruz</option>
+        <option value="21">Santa Fe</option>
+        <option value="22">Santiago del Estero</option>
+        <option value="23">Tierra del Fuego</option>
+        <option value="24">Tucumán</option>
+      </select>
+      <label for="localidad" style="width:140px">Localidad</label>
+      <input type="text" id="localidad" class="form-control" style="width: 200px;">
+    </div>
+
+
+    <div class="d-flex align-items-center mb-3 gap-3">
+    <label for="codigo_postal" style="width: 140px;">Codigo Postal</label>
+    <input type="text" id="codigo_postal" class="form-control" style="width: 200px;">
+    <label for="fecha_nacimiento" style="width: 140px;">Fecha de nacimiento</label>
+    <input type="date" id="fecha_nacimiento" class="form-control" style="width: 200px;">
+    </div>
+
+
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <label for="usuario2" style="width: 140px;">Nombre de usuario</label>
+      <input type="text" id="usuario2" class="form-control" style="width: 200px;">
+      <label for="contrasena2" style="width: 140px;">Nueva contraseña</label>
+      <div class="input-group" style="width: 200px;">
+        <input type="password" id="contrasena2" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+          <i class="bi bi-eye"></i>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="d-flex align-items-center mb-3 gap-3">
+      <label for="contrasena3" style="width: 140px;">Repetir contraseña</label>
+      <div class="input-group" style="width: 200px;">
+        <input type="password" id="contrasena3" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword2(this)">
+          <i class="bi bi-eye"></i>
+        </button>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-dark">Crear</button>
+    </div>
+    </div>
   </div>
 </div>
 <script>
   function togglePassword(btn) {
-    const input = document.getElementById('contraseña');
+    const input = document.getElementById('contrasena2');
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'bi bi-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'bi bi-eye';
+    }
+  }
+</script>
+<script>
+  function togglePassword2(btn) {
+    const input = document.getElementById('contrasena3');
     const icon = btn.querySelector('i');
     if (input.type === 'password') {
       input.type = 'text';
