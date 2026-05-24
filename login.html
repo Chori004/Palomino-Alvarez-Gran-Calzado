@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Zapatilla, zapatos y más</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-25">
+    <label for="usuario" class="form-label w-100 text-center">Nombre de usuario</label>
+    <input type="text" id="usuario" class="form-control mb-3" aria-describedby="passwordHelpBlock">
+    
+    <label for="inputPassword5" class="form-label w-100 text-center">Contraseña</label>
+    <div class="input-group mb-3">
+      <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+      <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+        <i class="bi bi-eye"></i>
+      </button>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-dark">Crear</button>
+    </div>
+    <p class ="text-center">¿No tienes contraseña? <a href="crear.html">Registrate</a></p>
+  </div>
+</div>
+
+<script>
+  function togglePassword(btn) {
+    const input = document.getElementById('inputPassword5');
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'bi bi-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'bi bi-eye';
+    }
+  }
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+

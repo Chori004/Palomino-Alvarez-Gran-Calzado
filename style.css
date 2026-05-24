@@ -2,20 +2,10 @@
     margin: 0;
     padding: 0;
 }
+body {
+  overflow-y: scroll;
+}
 
-header{
-    border: 2px solid black;
-    height: 80px;
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    align-items: center;
-    align-content: center;
-    background-color: #e7e7e7;
-}
-.titulo{
-    margin: 3px;
-    font-family: "Noto Sans", sans-serif;
-}
 #lista_nav{
     list-style: none;
     display: grid;
@@ -53,7 +43,6 @@ footer{
     background-color: black;
     display: grid;
     grid-template-columns: 50% 50%;
-    height: 100px;
 }
 .columna_1{
     display: grid;
@@ -82,3 +71,4 @@ footer{
 #lista_footer{
     list-style: none;
 }
+
