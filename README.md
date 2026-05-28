@@ -1,0 +1,1 @@
+Tenemos problemas con el stock, talle y modelo de zapato, cosa que deberiamos agregar con php. Consultar al profe, problema con el talle que está en otra tablaa (producto_variante), modelo de zapato es clave foranea y el stock no existe.
