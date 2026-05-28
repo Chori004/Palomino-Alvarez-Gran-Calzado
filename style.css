@@ -44,21 +44,26 @@ footer{
     display: grid;
     grid-template-columns: 50% 50%;
     margin-bottom: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 .columna_1{
     display: grid;
+    flex-direction: column;
     grid-template-rows: 1fr 1fr;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .columna_2{
     display: grid;
+    flex-direction: column;
     align-items: center;
     grid-template-rows: 1fr 1fr;
     justify-content: center;
 }
+
 .logos{
     text-align: center;
     align-content: center;
@@ -112,8 +117,8 @@ footer{
 }
 
 #imagen1, #imagen2, #imagen3, #imagen4, #imagen5, #imagen6, #imagen7, #imagen8, #imagen9, #imagen10, #imagen11, #imagen12, #imagen13,#imagen14,#imagen15,#imagen16{
-    height: 500px;
-    width: auto;
+    height: 400px;
+    width: 400px;
 }
 
 #fila1{
@@ -122,6 +127,6 @@ footer{
 #fila2{
     border-bottom: solid rgba(0, 0, 0, 0.4) 2px;
 }
-.col{
+ .pagina_abm .col{
     border-right: solid rgba(0, 0, 0, 0.4) 2px;
 }
