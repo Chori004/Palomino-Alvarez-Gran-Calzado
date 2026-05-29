@@ -2,9 +2,9 @@
 
 include('conexion.php');
 
-$id = $_GET['id'];
+$id_producto = $_GET['id_producto'];
 
-$sql = "SELECT * FROM productos WHERE id='$id_producto'";
+$sql = "SELECT * FROM productos WHERE id_producto='$id_producto'";
 
 $resultado = mysqli_query($conexion, $sql);
 
@@ -53,16 +53,16 @@ $producto = mysqli_fetch_assoc($resultado);
 
     <input type="hidden"
            name="id"
-           value="<?php echo $producto['id_producto']; ?>">
+           value="<?php echo $id_producto['id_producto']; ?>">
 
     <input type="text"
            name="nombre"
-           value="<?php echo $producto['nombre_producto']; ?>">
+           value="<?php echo $nombre_producto['nombre_producto']; ?>">
 
     <input type="number"
            step="0.01"
            name="preciounitario"
-           value="<?php echo $producto['precio']; ?>">
+           value="<?php echo $precio['precio']; ?>">
 
     <button type="submit">Actualizar</button>
 

@@ -130,3 +130,7 @@ footer{
  .pagina_abm .col{
     border-right: solid rgba(0, 0, 0, 0.4) 2px;
 }
+
+#login{
+    background-color: blanchedalmond;
+}
