@@ -13,6 +13,6 @@ $sql = "UPDATE productos
 
 mysqli_query($conexion, $sql);
 
-header('Location: index.php');
+header('Location: productos.php');
 
 ?>

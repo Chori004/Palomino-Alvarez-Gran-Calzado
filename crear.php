@@ -181,7 +181,7 @@ if (isset($_POST["nombre"])) {
           <label for="contrasena2" class="form-label fw-semibold text-secondary">Nueva contraseña</label>
           <div class="input-group">
             <input type="password" name="contrasena2" id="contrasena2" class="form-control">
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('contrasena2', this)">
+            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
               <i class="bi bi-eye"></i>
             </button>
           </div>
@@ -193,7 +193,7 @@ if (isset($_POST["nombre"])) {
           <label for="contrasena3" class="form-label fw-semibold text-secondary">Repetir contraseña</label>
           <div class="input-group">
             <input type="password" name="contrasena3" id="contrasena3" class="form-control">
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('contrasena3', this)">
+            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword2(this)">
               <i class="bi bi-eye"></i>
             </button>
           </div>
@@ -212,13 +212,13 @@ if (isset($_POST["nombre"])) {
     const input = document.getElementById('contrasena2');
     const icon = btn.querySelector('i');
     if (input.type === 'password') {
-      input.type = 'text';
-      icon.className = 'bi bi-eye-slash';
+        input.type = 'text';
+        icon.className = 'bi bi-eye-slash';
     } else {
-      input.type = 'password';
-      icon.className = 'bi bi-eye';
+        input.type = 'password';
+        icon.className = 'bi bi-eye';
     }
-  }
+}
   function soloNumeros(input) {
   input.value = input.value.replace(/[^0-9]/g, '');
 }
@@ -228,13 +228,13 @@ if (isset($_POST["nombre"])) {
     const input = document.getElementById('contrasena3');
     const icon = btn.querySelector('i');
     if (input.type === 'password') {
-      input.type = 'text';
-      icon.className = 'bi bi-eye-slash';
+        input.type = 'text';
+        icon.className = 'bi bi-eye-slash';
     } else {
-      input.type = 'password';
-      icon.className = 'bi bi-eye';
+        input.type = 'password';
+        icon.className = 'bi bi-eye';
     }
-  }
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

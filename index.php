@@ -36,7 +36,16 @@
             <?php 
             session_start();
             if (isset($_SESSION['usuario_logueado'])) {
-                echo '<span class="nav-link fs-5 d-inline-flex align-items-center" style="color: inherit;">' . $_SESSION['usuario_logueado'];
+                echo '
+                <div class="dropdown"> 
+                    <span class="nav-link fs-5 d-inline-flex align-items-center dropdown-toggle" style="color: inherit; cursor: pointer;" data-bs-toggle="dropdown">'
+                    . $_SESSION['usuario_logueado'] .
+                    '</span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="">Cambiar de cuenta</a></li>
+                        <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
+                    </ul>
+                </div>';
             } else {
                 echo '<a class="nav-link active fs-5" href="login.php">Login</a>';
             }
