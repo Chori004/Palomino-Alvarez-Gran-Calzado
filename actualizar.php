@@ -1,18 +1,18 @@
 <?php
-
 include('conexion.php');
 
 $id = $_POST['id'];
-$nombre_producto = $_POST['nombre_producto'];
-$precio = $_POST['precio'];
+$nombre_producto = $_POST['nombre'];
+$precio = $_POST['preciounitario'];
+$activo= $_POST['activo'];
 
 $sql = "UPDATE productos
         SET nombre_producto='$nombre_producto',
-            precio='$preciounitario',
-        WHERE id_producto='$id_producto'";
+            precio='$precio',
+            activo='$activo'
+        WHERE id_producto='$id'";
 
 mysqli_query($conexion, $sql);
 
 header('Location: productos.php');
-
 ?>

@@ -2,28 +2,24 @@
 include('conexion.php');
 
 $busqueda = "";
-$where_filtro="";
+
 if(isset($_GET['buscar'])) {
     $busqueda = $_GET['buscar'];
-    $where_filtro = "AND p.nombre_producto LIKE '%$busqueda%'";
-} 
-$sql = "SELECT p.id_producto, p.nombre_producto, p.precio, 
-                COUNT(pv.id_variante) AS stock_actual
-                FROM productos p
-                LEFT JOIN producto_variante pv
-                    ON p.id_producto = pv.id_producto_fk
-                    AND pv.vendido = 'N'
-                    AND pv.activo = 'S'
-                WHERE p.activo = 'S' $where_filtro
-                GROUP BY p.id_producto";
-$resultado = mysqli_query($conexion, $sql);
+    $sql = "SELECT p.*, m.modelo FROM productos p 
+            INNER JOIN modelo_zapato m ON p.id_categoria_fk = m.id_categoria
+            WHERE p.nombre_producto LIKE '%$busqueda%'";
+} else {
+    $sql = "SELECT p.*, m.modelo FROM productos p 
+            INNER JOIN modelo_zapato m ON p.id_categoria_fk = m.id_categoria";
+}
 
+$resultado = mysqli_query($conexion, $sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>ABM Productos PHP</title>
     <a href="abm.php"><h1>Inicio</h1></a>
     <style>
 
@@ -82,7 +78,7 @@ $resultado = mysqli_query($conexion, $sql);
 </head>
 <body>
 
-<h1>ABM Usuarios - PHP</h1>
+<h1>ABM Productos - PHP</h1>
 
 <form action="guardar.php" method="POST">
 
@@ -118,7 +114,8 @@ $resultado = mysqli_query($conexion, $sql);
         <th>ID</th>
         <th>Nombre</th>
         <th>Precio</th>
-        <th>Stock</th>
+        <th>Activo</th>
+        <th>Categoria</th>
         <th>Acciones</th>
     </tr>
 
@@ -128,7 +125,9 @@ $resultado = mysqli_query($conexion, $sql);
         <td><?php echo $fila['id_producto']; ?></td>
         <td><?php echo $fila['nombre_producto']; ?></td>
         <td><?php echo $fila['precio']; ?></td>
-        <td><?php echo $fila['stock_actual'];?></td>
+        <td><?php echo $fila['activo'];?></td>
+        <td><?php echo $fila['modelo']; ?></td>
+    
 
         <td>
             <a href="editar.php?id=<?php echo $fila['id_producto']; ?>">

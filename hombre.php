@@ -56,7 +56,7 @@
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
     <?php
     include("conexion.php");
-    $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos");
+    $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 1");
 
     while ($producto = mysqli_fetch_array($consulta_productos)) {
     ?>

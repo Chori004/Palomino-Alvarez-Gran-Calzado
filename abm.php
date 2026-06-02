@@ -27,7 +27,7 @@
         <a href="usuarios.php" class="btn btn-dark">ABM Usuarios</a>
     </div>
     <div class="col">
-        <a href="producto_variante.php" class="btn btn-dark">ABM Productos</a>
+        <a href="producto_variante.php" class="btn btn-dark">ABM Stock</a>
     </div>
   </div>
   <div class="row mt-3">
