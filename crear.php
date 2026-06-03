@@ -20,8 +20,8 @@ if (isset($_POST["nombre"])) {
     echo "Las contraseñas no coinciden";
   } else {
       $resultado=mysqli_query($conexion, "INSERT INTO usuario
-        (documento, id_tipodocumento_fk, nombre, apellido, email, telefono, direccion, provincia, localidad, codigo_postal, fecha_nacimiento, nombre_usuario, password_hash)
-        VALUES ('$documento', '$tipo_documento', '$nombre', '$apellido', '$email', '$telefono', '$direccion', '$provincia', '$localidad', '$codigo_postal', '$fecha_nacimiento', '$nombre_usuario', '$password_hash')");
+        (documento, id_tipodocumento_fk, nombre, apellido, email, telefono, direccion, provincia, localidad, codigo_postal, fecha_nacimiento, nombre_usuario, password_hash, id_rol_fk)
+        VALUES ('$documento', '$tipo_documento', '$nombre', '$apellido', '$email', '$telefono', '$direccion', '$provincia', '$localidad', '$codigo_postal', '$fecha_nacimiento', '$nombre_usuario', '$password_hash', 3)");
       if (!$resultado) {
         $texto_error=mysqli_error($conexion);
         if (strpos($texto_error,"email") !== false) {

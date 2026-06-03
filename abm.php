@@ -29,6 +29,15 @@
     <div class="col">
         <a href="producto_variante.php" class="btn btn-dark">ABM Stock</a>
     </div>
+    <div class="col">
+        <a href="modelo.php" class="btn btn-dark">ABM Modelo de Zapato</a>
+    </div>
+    <div class="col">
+        <a href="rol.php" class="btn btn-dark">ABM Rol</a>
+    </div>
+    <div class="col">
+        <a href="documentos.php" class="btn btn-dark">ABM Documentos</a>
+    </div>
   </div>
   <div class="row mt-3">
     <div class="col">
@@ -39,6 +48,12 @@
     </div>
     <div class="col">
         <a href="reserva.php" class="btn btn-dark">ABM Reserva</a>
+    </div>
+    <div class="col">
+        <a href="carrito.php" class="btn btn-dark">ABM Carrito</a>
+    </div>
+    <div class="col">
+        <a href="factura.php" class="btn btn-dark">ABM Factura</a>
     </div>
   </div>
 </div>
