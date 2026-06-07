@@ -64,6 +64,18 @@ $producto = mysqli_fetch_assoc($resultado);
            name="preciounitario"
            value="<?php echo $producto['precio']; ?>">
     <input type="text"
+            name="imagen"
+            value="<?php echo $producto['imagen']; ?>">
+    <select name="id_categoria">
+    <?php
+    $consulta_categorias = mysqli_query($conexion, "SELECT * FROM modelo_zapato");
+    while ($categoria = mysqli_fetch_assoc($consulta_categorias)) {
+        $selected = ($producto['id_categoria_fk'] == $categoria['id_categoria']) ? "selected" : "";
+        echo "<option value='" . $categoria['id_categoria'] . "' $selected>" . $categoria['modelo'] . "</option>";
+    }
+    ?>
+</select>
+    <input type="text"
            name="activo"
            value="<?php echo $producto['activo']; ?>">
 

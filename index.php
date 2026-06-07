@@ -32,10 +32,10 @@ $productos = mysqli_query($conexion, $sql);
             <a class="nav-link active fs-5" aria-current="page" href="hombre.php">Hombre</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active fs-5" href="#">Mujer</a>
+            <a class="nav-link active fs-5" href="mujer.php">Mujer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active fs-5" href="#">Niños/as</a>
+            <a class="nav-link active fs-5" href="niños.php">Niños/as</a>
           </li>
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0">
@@ -124,7 +124,7 @@ $productos = mysqli_query($conexion, $sql);
   </div>
   <div class="row">
     <div class="col">
-      <p>Av. Cabildo 1979</p>
+      <p>Encuentranos en Av. Cabildo 1979</p>
       <p>palomino-alvarez@gmail.com</p>
     </div>
     <div class="col">

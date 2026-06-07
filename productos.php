@@ -92,6 +92,20 @@ $resultado = mysqli_query($conexion, $sql);
            name="precio"
            placeholder="Precio"
            required>
+    <input type="text"
+            name="imagen_zapato"
+            placeholder="URL Imagen"
+            required>
+    <select name="id_categoria" required>
+        <option value="" disabled selected>Seleccione una categoría</option>
+        <?php 
+        $consulta_categorias = mysqli_query($conexion, "SELECT * FROM modelo_zapato");
+        while ($categoria = mysqli_fetch_assoc($consulta_categorias)) {
+            echo "<option value='" . $categoria['id_categoria'] . "'>" . $categoria['modelo'] . "</option>";
+        }
+    
+        ?>
+    </select>
 
 
     <button type="submit">Guardar Producto</button>

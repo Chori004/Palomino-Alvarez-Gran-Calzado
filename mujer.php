@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hombre | Zapatilla, zapatos y más</title>
+    <title>Mujer | Zapatilla, zapatos y más</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
+        .card-img-top {
+            height: 500px;
+            object-fit: contain;
+        }
 </style>
 </head>
 <body>
@@ -65,7 +69,7 @@
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
     <?php
     include("conexion.php");
-    $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 1");
+    $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 2");
 
     while ($producto = mysqli_fetch_array($consulta_productos)) {
     ?>
@@ -78,11 +82,7 @@
               
             <p class="card-text">$<?php echo number_format($producto['precio'], 0, ',', '.'); ?></p>
               
-            <?php if (isset($_SESSION['usuario_logueado'])): ?>
-                <a href="agregar_carrito.php?id=<?php echo $producto['id_producto']; ?>" class="btn btn-dark">Agregar</a>
-            <?php else: ?>
-                <a href="login.php" class="btn btn-dark">Agregar</a>
-            <?php endif; ?>
+            <a href="#" class="btn btn-dark">Agregar</a>
           </div>
         </div>
       </div>
@@ -91,6 +91,7 @@
     ?>
   </div>
 </div>
+
 <footer>
         <div class="container text-center">
   <div class="row">
@@ -116,7 +117,6 @@
   </div>
 </div>
     </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
