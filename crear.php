@@ -57,7 +57,7 @@ if (isset($_POST["nombre"])) {
     
     <div class="text-center mb-4">
       <h4 class="fw-bold text-dark">Crear Cuenta</h4>
-      <small class="text-muted">Completa tus datos para registrarte en Alvarez y Asociados</small>
+      <small class="text-muted">Completa tus datos para registrarte en Palomino-Alvarez Gran Calzado</small>
     </div>
 
     <form method="POST" action="crear.php">
