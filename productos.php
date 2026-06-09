@@ -138,7 +138,7 @@ $resultado = mysqli_query($conexion, $sql);
     <tr>
         <td><?php echo $fila['id_producto']; ?></td>
         <td><?php echo $fila['nombre_producto']; ?></td>
-        <td><?php echo $fila['precio']; ?></td>
+        <td>$<?php echo $fila['precio']; ?></td>
         <td><?php echo $fila['activo'];?></td>
         <td><?php echo $fila['modelo']; ?></td>
     
