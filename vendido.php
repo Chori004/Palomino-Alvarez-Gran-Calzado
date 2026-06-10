@@ -2,19 +2,13 @@
 include("conexion.php");
 
 $where_filtro = "";
-
-
 if (isset($_GET['filtro_producto']) && $_GET['filtro_producto'] != "") {
-    $where_filtro = "AND pv.id_producto_fk = '" . $_GET['filtro_producto'] . "'";
+    $where_filtro = "AND producto_variante.id_producto_fk = '" . $_GET['filtro_producto'] . "'";
 }
 
-$sql = "SELECT pv.id_variante, p.nombre_producto, pv.talle, pv.activo, pv.vendido
-        FROM producto_variante pv
-        JOIN productos p ON pv.id_producto_fk = p.id_producto
-        WHERE pv.activo = 'N' " . $where_filtro . "
-        ORDER BY p.nombre_producto, pv.talle";
+$resultado_vendido = mysqli_query($conexion,"SELECT productos.nombre_producto, producto_variante.id_variante, producto_variante.talle, producto_variante.vendido FROM producto_variante
+                                            JOIN productos ON producto_variante.id_producto_fk = productos.id_producto WHERE vendido = 'S'". $where_filtro);             
 
-$resultado = mysqli_query($conexion, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +16,7 @@ $resultado = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Variantes Inactivas</title>
+    <title>Variantes Vendidas</title>
     <style>
         body { font-family: Arial; background: #f4f4f4; margin: 20px; }
         h1 { color: #333; }
@@ -40,12 +34,12 @@ $resultado = mysqli_query($conexion, $sql);
 <body>
 
     <a href="abm.php"><h1>Inicio</h1></a>
-    <h1>Archivo de Variantes Inactivas</h1>
+    <h1>Archivo de Variantes Vendidas</h1>
     
     <a href="producto_variante.php" class="btn-volver">← Volver a Stock Activo</a>
 
     <form method="GET">
-        <label>Filtrar por Zapato Dado de Baja:</label>
+        <label>Filtrar por Zapato Vendido:</label>
         <select name="filtro_producto">
             <option value="">Todos los productos</option>
             <?php
@@ -65,18 +59,16 @@ $resultado = mysqli_query($conexion, $sql);
         <th>Producto</th>
         <th>Talle</th>
         <th>Vendido</th>
-        <th>Activo</th>
         <th>Acciones</th>
     </tr>
-    <?php while($fila = mysqli_fetch_assoc($resultado)) { ?>
+    <?php while($fila = mysqli_fetch_assoc($resultado_vendido)) { ?>
     <tr>
         <td><?= $fila['id_variante'] ?></td>
         <td><?= $fila['nombre_producto'] ?></td>
         <td><?= $fila['talle'] ?></td>
         <td><?= $fila['vendido'] ?></td>
-        <td><?= $fila['activo'] ?></td>
         <td>
-            <a href="reactivar_variante.php?id=<?= $fila['id_variante'] ?>" class="btn-activar">Reactivar</a>
+            <a href="reactivar_vendido.php?id=<?= $fila['id_variante'] ?>" class="btn-activar">Marcar como no vendido</a>
         </td>
     </tr>
     <?php } ?>

@@ -54,14 +54,21 @@ $variante = mysqli_fetch_assoc($resultado);
     <input type="hidden"
            name="id"
            value="<?php echo $variante['id_variante']; ?>">
-
+    <label>Talle</label>
     <input type="text"
            name="talle"
            value="<?php echo $variante['talle']; ?>">
-
-    <input type="text"
-           name="vendido"
-           value="<?php echo $variante['vendido']; ?>">
+    <label>¿Vendido?</label><br>
+    <select name="vendido">
+        <option value="S" <?= $variante['vendido'] == 'S' ? 'selected' : '' ?>>Si</option>
+        <option value="N" <?= $variante['vendido'] == 'N' ? 'selected' : '' ?>>No</option>
+    </select><br>
+    <label>Condición</label><br>
+    <select name="condicion">
+        <option value="estable" <?= $variante['condicion'] == 'estable' ? 'selected' : '' ?>>Estable</option>
+        <option value="roto" <?= $variante['condicion'] == 'roto' ? 'selected' : '' ?>>Roto</option>
+    </select><br>
+    
 
     <button type="submit">Actualizar</button>
 

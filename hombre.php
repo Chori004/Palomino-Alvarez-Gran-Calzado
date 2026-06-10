@@ -1,3 +1,12 @@
+<?php session_start(); 
+include("conexion.php");
+$where_tipo = "";
+if (isset($_GET['tipo']) && $_GET['tipo'] != "") {
+    $where_tipo = "AND nombre_producto LIKE '%" . $_GET['tipo'] . "%'";
+}
+
+$consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 1 " . $where_tipo);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +16,25 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
+      .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
+      .talle-sin-stock {
+          color: #6c757d !important;
+          border-color: #dee2e6 !important;
+          background-color: #f8f9fa !important;
+          overflow: hidden;
+      }
+      .talle-sin-stock::after {
+          content: "";
+          position: absolute;
+          width: 150%;
+          height: 1px;
+          background-color: #adb5bd;
+          transform: rotate(-35deg);
+          top: 50%;
+          left: -25%;
+      }
 </style>
 </head>
 <body>
@@ -19,20 +47,25 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-4">
-          <li class="nav-item">
-            <a class="nav-link active fs-5" aria-current="page" href="hombre.php">Hombre</a>
+          <li class="nav-item dropdown">
+              <a class="nav-link active fs-5 dropdown-toggle" href="hombre.php">Hombre</a>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="hombre.php">Todos</a></li>
+                  <li><a class="dropdown-item" href="hombre.php?tipo=Zapato">Zapatos</a></li>
+                  <li><a class="dropdown-item" href="hombre.php?tipo=Botas">Botas</a></li>
+                  <li><a class="dropdown-item" href="hombre.php?tipo=Borcego">Borcegos</a></li>
+              </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active fs-5" href="mujer.php">Mujer</a>
+          <li class="nav-item dropdown">
+              <a class="nav-link active fs-5" href="mujer.php">Mujer</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active fs-5" href="niños.php">Niños/as</a>
+          <li class="nav-item dropdown">
+              <a class="nav-link active fs-5" href="niños.php">Niños/as</a>
           </li>
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item"> 
             <?php 
-            session_start();
             if (isset($_SESSION['usuario_logueado'])) {
                 echo '
                 <div class="dropdown"> 
@@ -40,7 +73,7 @@
                     . $_SESSION['usuario_logueado'] .
                     '</span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Cambiar de cuenta</a></li>
+                        <li><a class="dropdown-item" href="login.php">Cambiar de cuenta</a></li>
                         <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                     </ul>
                 </div>';
@@ -49,12 +82,41 @@
             }
             ?>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
+          <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-basket3 align-middle" viewBox="0 0 16 16">
-                      <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z"/>
+                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z"/>
               </svg>
+              
+              <?php 
+              $total_items = isset($_SESSION['carrito']) ? array_sum(array_column($_SESSION['carrito'], 'cantidad')) : 0; 
+              ?>
+              <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger <?php echo ($total_items == 0) ? 'd-none' : ''; ?>">
+                <?php echo $total_items; ?>
+              </span>
             </a>
+            
+            <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" id="cart-dropdown-menu" style="width: 300px; max-height: 400px; overflow-y: auto; box-shadow: 0px 4px 15px rgba(0,0,0,0.15); right: 0; left: auto !important;">
+              <div id="cart-items-container">
+                <?php if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])): ?>
+                  <li class="text-center text-muted my-2 py-2" id="cart-empty-msg">El carrito está vacío</li>
+                <?php else: ?>
+                  <?php foreach ($_SESSION['carrito'] as $clave => $item): ?>
+                    <li class="d-flex align-items-center mb-3 pb-2 border-bottom">
+                      <img src="<?php echo $item['imagen']; ?>" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                      <div class="flex-grow-1" style="font-size: 0.9rem;">
+                        <h6 class="mb-0 fw-bold" style="font-size: 0.95rem;"><?php echo $item['nombre']; ?></h6>
+                        <small class="text-muted">Talle: <?php echo $item['talle']; ?> | Cant: <?php echo $item['cantidad']; ?></small>
+                        <div class="fw-semibold text-dark">$<?php echo number_format($item['precio'] * $item['cantidad'], 0, ',', '.'); ?></div>
+                      </div>
+                    </li>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </div>
+              <li class="mt-2 text-center">
+                <a href="ver_carrito.php" class="btn btn-dark btn-sm w-100">Ver Carrito Completo</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -64,9 +126,6 @@
 <div class="container-fluid px-3">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
     <?php
-    include("conexion.php");
-    $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 1");
-
     while ($producto = mysqli_fetch_array($consulta_productos)) {
     ?>
       <div class="col">
@@ -79,10 +138,59 @@
             <p class="card-text">$<?php echo number_format($producto['precio'], 0, ',', '.'); ?></p>
               
             <?php if (isset($_SESSION['usuario_logueado'])): ?>
-                <a href="agregar_carrito.php?id=<?php echo $producto['id_producto']; ?>" class="btn btn-dark">Agregar</a>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalProducto<?php echo $producto['id_producto']; ?>">
+                    Agregar
+                </button>
             <?php else: ?>
                 <a href="login.php" class="btn btn-dark">Agregar</a>
             <?php endif; ?>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalProducto<?php echo $producto['id_producto']; ?>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><?php echo $producto['nombre_producto']; ?></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label fw-bold d-block mb-3">Seleccioná tu Talle:</label>
+                
+                <div class="d-flex flex-wrap gap-2">
+                  
+                  <?php
+                  $talles_hombre = [39, 39.5, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45];
+                  $id_actual = $producto['id_producto'];
+
+                  foreach ($talles_hombre as $talle) {
+                      $id_unico = "talle_" . $id_actual . "_" . $talle;
+                      
+                      $buscar_variante = mysqli_query($conexion, "SELECT COUNT(*) as total FROM producto_variante WHERE id_producto_fk = '$id_actual' AND talle = '$talle' AND activo = 'S' AND vendido = 'N'");
+                      $resultado = mysqli_fetch_array($buscar_variante);
+                      
+                      $disabled = "";
+                      $clase_sin_stock = "";
+                      
+                      if (!$resultado || $resultado['total'] <= 0) {
+                          $disabled = "disabled";
+                          $clase_sin_stock = "talle-sin-stock";
+                      }
+                      ?>
+                      
+                      <input type="radio" class="btn-check" name="talle_elegido" id="<?php echo $id_unico; ?>" value="<?php echo $talle; ?>" required <?php echo $disabled; ?>>
+                      
+                      <label class="btn btn-outline-dark d-flex align-items-center justify-content-center position-relative <?php echo $clase_sin_stock; ?>" for="<?php echo $id_unico; ?>" style="width: 55px; height: 45px; font-weight: 500;">
+                          <?php echo $talle; ?>
+                      </label>
+                      
+                      <?php
+                  }
+                  ?>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

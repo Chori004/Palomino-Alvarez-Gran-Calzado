@@ -49,7 +49,7 @@ $productos = mysqli_query($conexion, $sql);
                     . $_SESSION['usuario_logueado'] .
                     '</span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Cambiar de cuenta</a></li>
+                        <li><a class="dropdown-item" href="login.php">Cambiar de cuenta</a></li>
                         <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                     </ul>
                 </div>';
@@ -58,12 +58,41 @@ $productos = mysqli_query($conexion, $sql);
             }
             ?>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">
+          <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-basket3 align-middle" viewBox="0 0 16 16">
-                      <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z"/>
+                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z"/>
               </svg>
+              
+              <?php 
+              $total_items = isset($_SESSION['carrito']) ? array_sum(array_column($_SESSION['carrito'], 'cantidad')) : 0; 
+              ?>
+              <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger <?php echo ($total_items == 0) ? 'd-none' : ''; ?>">
+                <?php echo $total_items; ?>
+              </span>
             </a>
+            
+            <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="cartDropdown" id="cart-dropdown-menu" style="width: 300px; max-height: 400px; overflow-y: auto; box-shadow: 0px 4px 15px rgba(0,0,0,0.15); right: 0; left: auto !important;">
+              <div id="cart-items-container">
+                <?php if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])): ?>
+                  <li class="text-center text-muted my-2 py-2" id="cart-empty-msg">El carrito está vacío</li>
+                <?php else: ?>
+                  <?php foreach ($_SESSION['carrito'] as $clave => $item): ?>
+                    <li class="d-flex align-items-center mb-3 pb-2 border-bottom">
+                      <img src="<?php echo $item['imagen']; ?>" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                      <div class="flex-grow-1" style="font-size: 0.9rem;">
+                        <h6 class="mb-0 fw-bold" style="font-size: 0.95rem;"><?php echo $item['nombre']; ?></h6>
+                        <small class="text-muted">Talle: <?php echo $item['talle']; ?> | Cant: <?php echo $item['cantidad']; ?></small>
+                        <div class="fw-semibold text-dark">$<?php echo number_format($item['precio'] * $item['cantidad'], 0, ',', '.'); ?></div>
+                      </div>
+                    </li>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </div>
+              <li class="mt-2 text-center">
+                <a href="ver_carrito.php" class="btn btn-dark btn-sm w-100">Ver Carrito Completo</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

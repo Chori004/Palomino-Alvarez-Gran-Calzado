@@ -14,10 +14,10 @@ if (isset($_POST["zapato"])) {
     header("Location: producto_variante.php");
 }
 
-$sql = "SELECT pv.id_variante, p.nombre_producto, pv.talle, pv.activo, pv.vendido
+$sql = "SELECT pv.id_variante, p.nombre_producto, pv.talle, pv.activo, pv.vendido, pv.condicion
         FROM producto_variante pv
         JOIN productos p ON pv.id_producto_fk = p.id_producto
-        WHERE pv.activo = 'S' " . $where_filtro . "
+        WHERE pv.activo = 'S' AND pv.vendido = 'N' " . $where_filtro . "
         ORDER BY p.nombre_producto, pv.talle";
 
 $resultado = mysqli_query($conexion, $sql);
@@ -93,7 +93,12 @@ $resultado = mysqli_query($conexion, $sql);
     <form action="inactivo.php" metho="GET">
     <label>¿Ver productos inactivos?</label>
     <button type="submit">Ver</button>
-</form>
+    </form>
+    <form action="vendido.php" metho="GET">
+    <label>¿Ver productos vendidos?</label>
+    <button type="submit">Ver</button>
+    </form>
+
     <form method="GET">
     <select name="filtro_producto">
         <option value="">Todos los productos</option>
@@ -113,8 +118,9 @@ $resultado = mysqli_query($conexion, $sql);
         <th>ID</th>
         <th>Producto</th>
         <th>Talle</th>
-        <th>Vendido</th>
         <th>Activo</th>
+        <th>Vendido</th>
+        <th>Condición</th>
         <th>Acciones</th>
     </tr>
     <?php while($fila = mysqli_fetch_assoc($resultado)) { ?>
@@ -124,6 +130,7 @@ $resultado = mysqli_query($conexion, $sql);
         <td><?= $fila['talle'] ?></td>
         <td><?=$fila['activo']?></td>
         <td><?= $fila['vendido'] ?></td>
+        <td><?= $fila['condicion'] ?></td>
         <td>
             <a href="editar_variante.php?id=<?= $fila['id_variante'] ?>">Editar</a>
             |
