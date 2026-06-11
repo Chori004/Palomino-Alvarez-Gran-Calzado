@@ -53,6 +53,9 @@ $rol = mysqli_fetch_assoc($resultado);
         <input type="text"
            name="tipo_documento"
            value="<?php echo $rol['tipo_documento']; ?>">
+        <input type="text"
+           name="abreviatura"
+           value="<?php echo $rol['abreviatura']; ?>">
         <button type="submit">Actualizar</button>
     </form>
     

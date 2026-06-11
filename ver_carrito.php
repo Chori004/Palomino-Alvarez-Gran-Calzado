@@ -1,17 +1,47 @@
 <?php
 session_start();
-include("conexion.php");
+$total_general = 0;
+include("conexion.php"); 
+
 if (!isset($_SESSION['usuario_logueado'])) {
     header("Location: login.php");
     exit();
 }
 
-$total_general = 0;
-if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
-    foreach ($_SESSION['carrito'] as $item) {
-        $total_general += $item['precio'] * $item['cantidad'];
+$nombre_usuario = $_SESSION['usuario_logueado'];
+$consulta_user = mysqli_query($conexion, "SELECT id_usuario FROM usuario WHERE nombre_usuario = '$nombre_usuario'");
+$usuario_data = mysqli_fetch_array($consulta_user);
+
+if ($usuario_data) {
+    $id_usuario = $usuario_data['id_usuario'];
+
+    $sql_carrito_db = "SELECT p.id_producto, p.nombre_producto, p.precio, p.imagen, pv.talle, COUNT(c.id_variante_fk) as cantidad
+                       FROM carrito c
+                       INNER JOIN producto_variante pv ON c.id_variante_fk = pv.id_variante
+                       INNER JOIN productos p ON pv.id_producto_fk = p.id_producto
+                       WHERE c.id_usuario_fk = '$id_usuario'
+                       GROUP BY c.id_variante_fk";
+                       
+    $resultado_db = mysqli_query($conexion, $sql_carrito_db);
+
+    $_SESSION['carrito'] = [];
+
+    while ($fila = mysqli_fetch_array($resultado_db)) {
+        $id_prod = $fila['id_producto'];
+        $talle = $fila['talle'];
+        $clave_carrito = $id_prod . "_" . $talle;
+
+        $_SESSION['carrito'][$clave_carrito] = [
+            'id_producto' => $id_prod,
+            'nombre' => $fila['nombre_producto'],
+            'precio' => $fila['precio'],
+            'imagen' => $fila['imagen'],
+            'talle' => $talle,
+            'cantidad' => $fila['cantidad']
+        ];
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +85,7 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
                     <div class="card shadow-sm p-3">
                         <?php foreach ($_SESSION['carrito'] as $clave => $item): 
                             $subtotal = $item['precio'] * $item['cantidad'];
+                            $total_general += $subtotal; // Sumamos cada subtotal al total general acumulado
                         ?>
                             <div class="row align-items-center mb-3 pb-3 border-bottom text-center text-sm-start">
                                 <div class="col-12 col-sm-2 mb-3 mb-sm-0">
@@ -106,7 +137,7 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
         <?php endif; ?>
     </div>
 
-    <footer class="mt-5 py-4 style="background-color: #f8f9fa;">
+    <footer class="mt-5 py-4" style="background-color: #f8f9fa;">
         <div class="container text-center">
             <p class="mb-0 text-white">&copy; <?php echo date("Y"); ?> Palomino-Alvarez Gran Calzado. Av. Cabildo 1979.</p>
         </div>

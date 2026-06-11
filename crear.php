@@ -1,3 +1,6 @@
+<?php
+include("conexion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +18,8 @@
     
     <div class="text-center mb-4">
       <h4 class="fw-bold text-dark">Crear Cuenta</h4>
-      <small class="text-muted">Completa tus datos para registrarte en Palomino-Alvarez Gran Calzado</small>
+      <small class="text-muted">Completa tus datos para registrarte en Palomino-Alvarez Gran Calzado</small><br>
+      <small class="text-muted">Todos los campos son obligatorios</small>
     </div>
 
     <form method="POST" action="crear.php">
@@ -39,11 +43,11 @@
           <label class="form-label fw-semibold text-secondary">Género</label>
           <div class="d-flex align-items-center gap-3 py-2">
             <div class="form-check">
-              <input class="form-check-input" name="genero" type="radio" name="radioDefault" id="radioDefault1" required>
+              <input class="form-check-input" name="genero" type="radio" id="radioDefault1" value="Hombre" required>
               <label class="form-check-label" href="#radioDefault1">Hombre</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" name="genero" type="radio" name="radioDefault" id="radioDefault2">
+              <input class="form-check-input" name="genero" type="radio" name="radioDefault2" id="radioDefault2" value="Mujer">
               <label class="form-check-label" for="radioDefault2">Mujer</label>
             </div>
           </div>
@@ -114,14 +118,17 @@
           <label for="documentos" class="form-label fw-semibold text-secondary">Documentos</label>
           <select name="documentos" id="documentos" class="form-select" aria-label="Default select example" required> 
             <option value="" selected disabled>Seleccione el tipo de documento</option>
-            <option value="1">DNI</option>
-            <option value="2">Pasaporte</option>
-            <option value="3">CUIT</option>
-            <option value="4">CI</option>
-            <option value="5">ERRO</option>
-            <option value="6">LC</option>
-            <option value="7">LE</option>
-            <option value="8">LEM</option>
+            <?php
+            $consulta_docs = mysqli_query($conexion, "SELECT * FROM tipo_documento");
+
+            if ($consulta_docs && mysqli_num_rows($consulta_docs) > 0) {
+              while($doc = mysqli_fetch_array($consulta_docs)) {
+                echo "<option value='" . $doc['id_tipodocumento'] . "'>" . $doc['tipo_documento'] . "</option>";
+              }
+            } else {
+              echo "<option disabled>No se pudieron cargar los documentos</option>";
+            }
+            ?>
           </select>
         </div>
         <div class="col-12 col-md-6">
@@ -163,7 +170,6 @@
       </div>
     </form>
   <?php
-include("conexion.php");
 if (isset($_POST["nombre"])) {
   $nombre = $_POST["nombre"];
   $apellido = $_POST["apellido"];

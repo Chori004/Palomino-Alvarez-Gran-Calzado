@@ -90,12 +90,14 @@ $resultado = mysqli_query($conexion, $sql);
         <tr>
             <td>ID</td>
             <td>Documentos</td>
+            <td>Abreviatura</td>
             <td>Acciones</td>
         </tr>
         <?php while($fila=mysqli_fetch_assoc($resultado)){?>
         <tr>
             <td><?= $fila['id_tipodocumento']?></td>
             <td><?= $fila['tipo_documento']?></td>
+            <td><?= $fila['abreviatura']?></td>
             <td>
                 <a href="editar_documentos.php?id=<?= $fila['id_tipodocumento'] ?>">Editar</a>
                 |
