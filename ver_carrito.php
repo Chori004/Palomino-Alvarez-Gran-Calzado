@@ -108,7 +108,7 @@ if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
 
     <footer class="mt-5 py-4 style="background-color: #f8f9fa;">
         <div class="container text-center">
-            <p class="mb-0 text-muted">&copy; <?php echo date("Y"); ?> Palomino-Alvarez Gran Calzado. Av. Cabildo 1979.</p>
+            <p class="mb-0 text-white">&copy; <?php echo date("Y"); ?> Palomino-Alvarez Gran Calzado. Av. Cabildo 1979.</p>
         </div>
     </footer>
 

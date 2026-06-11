@@ -155,41 +155,48 @@ $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE act
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div class="mb-3">
-                <label class="form-label fw-bold d-block mb-3">Seleccioná tu Talle:</label>
-                
-                <div class="d-flex flex-wrap gap-2">
-                  
-                  <?php
-                  $talles_hombre = [39, 39.5, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45];
-                  $id_actual = $producto['id_producto'];
+              <form action="agregar_carrito.php" method="POST">
+                <input type="hidden" name="id_producto" value="<?php echo $producto['id_producto']; ?>">
 
-                  foreach ($talles_hombre as $talle) {
-                      $id_unico = "talle_" . $id_actual . "_" . $talle;
-                      
-                      $buscar_variante = mysqli_query($conexion, "SELECT COUNT(*) as total FROM producto_variante WHERE id_producto_fk = '$id_actual' AND talle = '$talle' AND activo = 'S' AND vendido = 'N'");
-                      $resultado = mysqli_fetch_array($buscar_variante);
-                      
-                      $disabled = "";
-                      $clase_sin_stock = "";
-                      
-                      if (!$resultado || $resultado['total'] <= 0) {
-                          $disabled = "disabled";
-                          $clase_sin_stock = "talle-sin-stock";
-                      }
-                      ?>
-                      
-                      <input type="radio" class="btn-check" name="talle_elegido" id="<?php echo $id_unico; ?>" value="<?php echo $talle; ?>" required <?php echo $disabled; ?>>
-                      
-                      <label class="btn btn-outline-dark d-flex align-items-center justify-content-center position-relative <?php echo $clase_sin_stock; ?>" for="<?php echo $id_unico; ?>" style="width: 55px; height: 45px; font-weight: 500;">
-                          <?php echo $talle; ?>
-                      </label>
-                      
-                      <?php
-                  }
-                  ?>
+                <div class="mb-3">
+                  <label class="form-label fw-bold d-block mb-3">Seleccioná tu Talle:</label>
+                  
+                  <div class="d-flex flex-wrap gap-2">
+                    
+                    <?php
+                    $talles_hombre = [39, 39.5, 40, 40.5, 41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45];
+                    $id_actual = $producto['id_producto'];
+
+                    foreach ($talles_hombre as $talle) {
+                        $id_unico = "talle_" . $id_actual . "_" . $talle;
+                        
+                        $buscar_variante = mysqli_query($conexion, "SELECT COUNT(*) as total FROM producto_variante WHERE id_producto_fk = '$id_actual' AND talle = '$talle' AND activo = 'S' AND vendido = 'N'");
+                        $resultado = mysqli_fetch_array($buscar_variante);
+                        
+                        $disabled = "";
+                        $clase_sin_stock = "";
+                        
+                        if (!$resultado || $resultado['total'] <= 0) {
+                            $disabled = "disabled";
+                            $clase_sin_stock = "talle-sin-stock";
+                        }
+                        ?>
+                        
+                        <input type="radio" class="btn-check" name="talle_elegido" id="<?php echo $id_unico; ?>" value="<?php echo $talle; ?>" required <?php echo $disabled; ?>>
+                        
+                        <label class="btn btn-outline-dark d-flex align-items-center justify-content-center position-relative <?php echo $clase_sin_stock; ?>" for="<?php echo $id_unico; ?>" style="width: 55px; height: 45px; font-weight: 500;">
+                            <?php echo $talle; ?>
+                        </label>
+                        
+                        <?php
+                    }
+                    ?>
+                  </div>
                 </div>
-              </div>
+
+                <button type="submit" class="btn btn-dark w-100 mt-3">Confirmar y Agregar</button>
+              </form>
+
             </div>
           </div>
         </div>
@@ -226,5 +233,71 @@ $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE act
     </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<script>
+document.querySelectorAll('form[action="agregar_carrito.php"]').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+
+        const modalElement = this.closest('.modal');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+
+        const formData = new FormData(this);
+
+        fetch('agregar_carrito.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                actualizarMenuCarrito(data.carrito);
+            } else {
+                alert(data.mensaje);
+            }
+        })
+        .catch(error => console.error('Error en la petición:', error));
+    });
+});
+
+function actualizarMenuCarrito(carrito) {
+    const container = document.getElementById('cart-items-container');
+    const badge = document.getElementById('cart-badge');
+    
+    container.innerHTML = ''; 
+    let totalCantidad = 0;
+
+    Object.keys(carrito).forEach(key => {
+        const item = carrito[key];
+        totalCantidad += parseInt(item.cantidad);
+        
+        const precioFormateado = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0 }).format(item.precio * item.cantidad);
+
+        const htmlItem = `
+            <li class="d-flex align-items-center mb-3 pb-2 border-bottom">
+                <img src="${item.imagen}" style="width: 50px; height: 50px; object-fit: contain;" class="me-2">
+                <div class="flex-grow-1" style="font-size: 0.9rem;">
+                    <h6 class="mb-0 fw-bold" style="font-size: 0.95rem;">${item.nombre}</h6>
+                    <small class="text-muted">Talle: ${item.talle} | Cant: ${item.cantidad}</small>
+                    <div class="fw-semibold text-dark">$${precioFormateado}</div>
+                </div>
+            </li>
+        `;
+        container.insertAdjacentHTML('beforeend', htmlItem);
+    });
+
+    if (totalCantidad > 0) {
+        badge.textContent = totalCantidad;
+        badge.classList.remove('d-none');
+    }
+
+    const dropdownToggle = document.getElementById('cartDropdown');
+    const dropdownInstance = bootstrap.Dropdown.getOrCreateInstance(dropdownToggle);
+    dropdownInstance.show();
+}
+</script>
 </body>
 </html>
