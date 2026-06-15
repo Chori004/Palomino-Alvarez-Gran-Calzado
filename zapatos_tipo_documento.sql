@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `tipo_documento`;
 CREATE TABLE `tipo_documento` (
   `id_tipodocumento` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_documento` varchar(45) DEFAULT NULL,
+  `abreviatura` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_tipodocumento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `tipo_documento` (
 
 LOCK TABLES `tipo_documento` WRITE;
 /*!40000 ALTER TABLE `tipo_documento` DISABLE KEYS */;
-INSERT INTO `tipo_documento` VALUES (1,'DNI'),(2,'Pasaporte'),(3,'CUIT'),(4,'CI'),(5,'ERRO'),(6,'LC'),(7,'LE'),(8,'LEM');
+INSERT INTO `tipo_documento` VALUES (1,'Documento Nacional de Identidad','DNI'),(2,'Pasaporte','PAS'),(3,'Clave Única de Identificación Tributaria','CUIT'),(4,'Cédula de Identidad','CI'),(5,'Erro de Mig. Host','ERRO'),(6,'Libreta Cívica','LC'),(7,'Libreta de Enrolamiento','LE'),(8,'Libreta de Embarque','LEM');
 /*!40000 ALTER TABLE `tipo_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-05  9:15:54
+-- Dump completed on 2026-06-12  9:11:30

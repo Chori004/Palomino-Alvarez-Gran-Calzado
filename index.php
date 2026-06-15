@@ -136,7 +136,7 @@ $productos = mysqli_query($conexion, $sql);
           <div class="card-body">
             <h6 class="card-title"><?php echo $producto['nombre_producto']; ?></h6>
             <p class="card-text">$<?php echo $producto['precio']; ?></p>
-            <a href="hombre.html" class="btn btn-dark btn-sm">Ver más</a>
+            <a href="hombre.php" class="btn btn-dark btn-sm">Ver más</a>
           </div>
         </div>
       </div>

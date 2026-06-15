@@ -10,6 +10,12 @@ include("conexion.php");
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+      .requerido::after {
+          content: " *";
+          color: #dc3545;
+      }
+    </style>
 </head>
 <body>
   
@@ -19,31 +25,31 @@ include("conexion.php");
     <div class="text-center mb-4">
       <h4 class="fw-bold text-dark">Crear Cuenta</h4>
       <small class="text-muted">Completa tus datos para registrarte en Palomino-Alvarez Gran Calzado</small><br>
-      <small class="text-muted">Todos los campos son obligatorios</small>
+      <small class="text-muted">* Campos obligatorios</small>
     </div>
 
     <form method="POST" action="crear.php">
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
-          <label for="nombre" class="form-label fw-semibold text-secondary">Nombre</label>
-          <input type="text" name="nombre" id="nombre" class="form-control" required>
+          <label for="nombre" class="form-label fw-semibold text-secondary requerido">Nombre</label>
+          <input type="text" name="nombre" id="nombre" class="form-control" value="<?= $_POST['nombre'] ?? '' ?>" oninput="soloLetras(this)" required>
         </div>
         <div class="col-12 col-md-6">
-          <label for="apellido" class="form-label fw-semibold text-secondary">Apellido</label>
-          <input type="text" name="apellido" id="apellido" class="form-control" required>
+          <label for="apellido" class="form-label fw-semibold text-secondary requerido">Apellido</label>
+          <input type="text" name="apellido" id="apellido" class="form-control" value="<?= $_POST['apellido'] ?? '' ?>" oninput="soloLetras(this)" required>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
-          <label for="email" class="form-label fw-semibold text-secondary">Email</label>
-          <input type="text" name="email" id="email" class="form-control" placeholder="ejemplo@empresa.com" required>
+          <label for="email" class="form-label fw-semibold text-secondary requerido">Email</label>
+          <input type="email" name="email" id="email" class="form-control" value="<?= $_POST['email'] ?? '' ?>" placeholder="ejemplo@empresa.com" required>
         </div>
         <div class="col-12 col-md-6">
           <label class="form-label fw-semibold text-secondary">Género</label>
           <div class="d-flex align-items-center gap-3 py-2">
             <div class="form-check">
-              <input class="form-check-input" name="genero" type="radio" id="radioDefault1" value="Hombre" required>
+              <input class="form-check-input" name="genero" type="radio" id="radioDefault1" value="Hombre">
               <label class="form-check-label" href="#radioDefault1">Hombre</label>
             </div>
             <div class="form-check">
@@ -57,19 +63,19 @@ include("conexion.php");
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
           <label for="telefono" class="form-label fw-semibold text-secondary">Teléfono</label>
-          <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ej: 1112345678" required>
+          <input type="tel" name="telefono" id="telefono" class="form-control" value="<?= $_POST['telefono'] ?? '' ?>" placeholder="Ej: 1112345678" oninput="soloNumeros(this)">
         </div>
         <div class="col-12 col-md-6">
           <label for="direccion" class="form-label fw-semibold text-secondary">Dirección</label>
-          <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Ej: Av. Cabildo 1979" required>
+          <input type="text" name="direccion" id="direccion" class="form-control" value="<?= $_POST['direccion'] ?? '' ?>" placeholder="Ej: Av. Cabildo 1979">
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
           <label for="provincia" class="form-label fw-semibold text-secondary">Provincia</label>
-          <select name="provincia" id="provincia" class="form-select" required>
-            <option value="" selected disabled>Seleccione una provincia</option>
+          <select name="provincia" id="provincia" class="form-select">
+            <option value="" selected>Seleccione una provincia</option>
             <option value="Buenos Aires">Buenos Aires</option>
             <option value="Catamarca">Catamarca</option>
             <option value="Chaco">Chaco</option>
@@ -98,24 +104,24 @@ include("conexion.php");
         </div>
         <div class="col-12 col-md-6">
           <label for="localidad" class="form-label fw-semibold text-secondary">Localidad</label>
-          <input type="text" name="localidad" id="localidad" class="form-control" required>
+          <input type="text" name="localidad" id="localidad" class="form-control" value="<?= $_POST['localidad'] ?? '' ?>" oninput="soloLetras(this)">
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
           <label for="codigo_postal" class="form-label fw-semibold text-secondary">Codigo Postal</label>
-          <input type="text" name="cp" id="codigo_postal" class="form-control" required>
+          <input type="text" name="cp" id="codigo_postal" class="form-control" value="<?= $_POST['cp'] ?? '' ?>" oninput="soloNumeros(this)">
         </div>
         <div class="col-12 col-md-6">
           <label for="fecha_nacimiento" class="form-label fw-semibold text-secondary">Fecha de nacimiento</label>
-          <input type="date" name="nacimiento" id="fecha_nacimiento" class="form-control" required>
+          <input type="date" name="nacimiento" id="fecha_nacimiento" class="form-control" value="<?= $_POST['nacimiento'] ?? '' ?>" max="<?= date('Y-m-d') ?>">
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
-          <label for="documentos" class="form-label fw-semibold text-secondary">Documentos</label>
+          <label for="documentos" class="form-label fw-semibold text-secondary requerido">Documentos</label>
           <select name="documentos" id="documentos" class="form-select" aria-label="Default select example" required> 
             <option value="" selected disabled>Seleccione el tipo de documento</option>
             <?php
@@ -132,20 +138,20 @@ include("conexion.php");
           </select>
         </div>
         <div class="col-12 col-md-6">
-          <label for="documento" class="form-label fw-semibold text-secondary">Documento</label>
-          <input type="text" name="documento" id="documento" class="form-control" oninput="soloNumeros(this)" required>
+          <label for="documento" class="form-label fw-semibold text-secondary requerido">Documento</label>
+          <input type="text" name="documento" id="documento" class="form-control" value="<?= $_POST['documento'] ?? '' ?>" oninput="soloNumeros(this)" required>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
-          <label for="usuario2" class="form-label fw-semibold text-secondary">Nombre de usuario</label>
-          <input type="text" name="usuario2" id="usuario2" class="form-control" required>
+          <label for="usuario2" class="form-label fw-semibold text-secondary requerido">Nombre de usuario</label>
+          <input type="text" name="usuario2" id="usuario2" class="form-control" value="<?= $_POST['usuario2'] ?? '' ?>" required>
         </div>
         <div class="col-12 col-md-6">
-          <label for="contrasena2" class="form-label fw-semibold text-secondary">Nueva contraseña</label>
+          <label for="contrasena2" class="form-label fw-semibold text-secondary requerido">Nueva contraseña</label>
           <div class="input-group">
-            <input type="password" name="contrasena2" id="contrasena2" class="form-control" required>
+            <input type="password" name="contrasena2" id="contrasena2" class="form-control" value="<?= $_POST['contrasena2'] ?? '' ?>" required>
             <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
               <i class="bi bi-eye"></i>
             </button>
@@ -155,9 +161,9 @@ include("conexion.php");
 
       <div class="row g-3 mb-4">
         <div class="col-12 col-md-6">
-          <label for="contrasena3" class="form-label fw-semibold text-secondary">Repetir contraseña</label>
+          <label for="contrasena3" class="form-label fw-semibold text-secondary requerido">Repetir contraseña</label>
           <div class="input-group">
-            <input type="password" name="contrasena3" id="contrasena3" class="form-control" required>
+            <input type="password" name="contrasena3" id="contrasena3" class="form-control" value="<?= $_POST['contrasena3'] ?? '' ?>" required>
             <button class="btn btn-outline-secondary" type="button" onclick="togglePassword2(this)">
               <i class="bi bi-eye"></i>
             </button>
@@ -227,6 +233,9 @@ if (isset($_POST["nombre"])) {
   function soloNumeros(input) {
   input.value = input.value.replace(/[^0-9]/g, '');
 }
+  function soloLetras(input) {
+    input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ' ]/g, '');
+  }
 </script>
 <script>
   function togglePassword2(btn) {

@@ -32,6 +32,7 @@ if (isset($_GET['clave']) && $_GET['clave'] != "") {
 
                     $sql_delete = "DELETE FROM carrito WHERE id_usuario_fk = '$id_usuario' AND id_variante_fk = '$id_variante_fk' LIMIT 1";
                     mysqli_query($conexion, $sql_delete);
+                    mysqli_query($conexion, "UPDATE producto_variante SET vendido = 'N' WHERE id_variante = '$id_variante_fk'");
                 }
             }
         }

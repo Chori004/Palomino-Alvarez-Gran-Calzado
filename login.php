@@ -5,15 +5,15 @@ if (isset($_POST["usuario"])) {
   $usuario = $_POST["usuario"];
   $contrasena = $_POST["contrasena"];
 
-  $chequeo = mysqli_query($conexion,"SELECT nombre_usuario FROM usuario");
-  $chequeo_contra=mysqli_query($conexion,"SELECT password_hash FROM usuario WHERE nombre_usuario = '$usuario'");
+  $chequeo = mysqli_query($conexion, "SELECT nombre_usuario, password_hash FROM usuario WHERE nombre_usuario = '$usuario'");
   $fila_usuario = mysqli_fetch_array($chequeo);
-  $fila_contra= mysqli_fetch_array($chequeo_contra);
+
   if ($usuario == "admin" and $contrasena == "admin") {
     header("Location: abm.php");
-  } elseif ($usuario != $fila_usuario["nombre_usuario"]) {
+    exit();
+  } elseif (!$fila_usuario) {
     $error = "Ese nombre de usuario no existe.";
-  } elseif ($contrasena != $fila_contra["password_hash"]) {
+  } elseif ($contrasena != $fila_usuario["password_hash"]) {
     $error = "Contraseña incorrecta.";
   } else {
         session_start();
@@ -46,13 +46,13 @@ if (isset($_POST["usuario"])) {
 
           <div class="mb-3">
             <label for="usuario" class="form-label fw-semibold text-secondary">Nombre de usuario</label>
-            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="ejemplo@correo.com">
+            <input type="text" name="usuario" id="usuario" class="form-control" value="<?= $_POST['usuario'] ?? '' ?>" placeholder="ejemplo@correo.com">
           </div>
           
           <div class="mb-4">
             <label for="inputPassword5" class="form-label fw-semibold text-secondary">Contraseña</label>
             <div class="input-group">
-              <input type="password" name="contrasena" id="inputPassword5" class="form-control">
+              <input type="password" name="contrasena" id="inputPassword5" value="<?= $_POST['contrasena'] ?? '' ?>" class="form-control">
               <button class="btn btn-outline-secondary border-start-0" type="button" onclick="togglePassword(this)">
                 <i class="bi bi-eye"></i>
               </button>

@@ -32,7 +32,7 @@ CREATE TABLE `producto_variante` (
   PRIMARY KEY (`id_variante`),
   KEY `id_producto_fk` (`id_producto_fk`),
   CONSTRAINT `producto_variante_ibfk_1` FOREIGN KEY (`id_producto_fk`) REFERENCES `productos` (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `producto_variante` (
 
 LOCK TABLES `producto_variante` WRITE;
 /*!40000 ALTER TABLE `producto_variante` DISABLE KEYS */;
-INSERT INTO `producto_variante` VALUES (20,27,42.0,'N','S','estable'),(21,28,41.0,'N','S','estable'),(22,27,41.0,'N','S','estable'),(23,28,38.0,'N','S','estable'),(24,42,44.0,'N','S','estable'),(25,39,38.0,'N','S','estable');
+INSERT INTO `producto_variante` VALUES (20,27,42.0,'N','S','estable'),(21,28,41.0,'N','S','estable'),(22,27,41.0,'N','S','estable'),(23,28,38.0,'N','S','estable'),(24,42,44.0,'N','S','estable'),(25,39,38.0,'N','S','estable'),(26,47,36.0,'N','S','estable');
 /*!40000 ALTER TABLE `producto_variante` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-05  9:15:54
+-- Dump completed on 2026-06-12  9:11:30

@@ -4,7 +4,6 @@ $where_tipo = "";
 if (isset($_GET['tipo']) && $_GET['tipo'] != "") {
     $where_tipo = "AND nombre_producto LIKE '%" . $_GET['tipo'] . "%'";
 }
-
 $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE activo = 'S' AND id_categoria_fk = 1 " . $where_tipo);
 ?>
 <!DOCTYPE html>
@@ -275,6 +274,7 @@ document.querySelectorAll('form[action="agregar_carrito.php"]').forEach(form => 
         .then(data => {
             if (data.status === 'success') {
                 actualizarMenuCarrito(data.carrito);
+                location.reload()
             } else {
                 alert(data.mensaje);
             }

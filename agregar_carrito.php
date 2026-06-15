@@ -23,13 +23,7 @@ if (isset($_POST['id_producto']) && isset($_POST['talle_elegido'])) {
 
     $id_usuario = $usuario_data['id_usuario'];
 
-    $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante WHERE id_producto_fk = '$id_producto' AND talle = '$talle_elegido'");
-    
-    if (!$consulta_variante) {
-        echo json_encode(['status' => 'error', 'mensaje' => 'Error al buscar la variante: ' . mysqli_error($conexion)]);
-        exit();
-    }
-
+    $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante WHERE id_producto_fk = '$id_producto' AND talle = '$talle_elegido' AND vendido = 'N' AND activo = 'S' LIMIT 1");
     $variante = mysqli_fetch_array($consulta_variante);
 
     if (!$variante) {
@@ -43,7 +37,7 @@ if (isset($_POST['id_producto']) && isset($_POST['talle_elegido'])) {
     $producto = mysqli_fetch_array($consulta_prod);
 
     if ($producto) {
-        
+
         $clave_carrito = $id_producto . "_" . $talle_elegido;
 
         if (isset($_SESSION['carrito'][$clave_carrito])) {
@@ -59,13 +53,9 @@ if (isset($_POST['id_producto']) && isset($_POST['talle_elegido'])) {
             ];
         }
 
-        $sql_insert = "INSERT INTO carrito (id_usuario_fk, id_variante_fk, fecha_agregado) VALUES ('$id_usuario', '$id_variante_fk', NOW())";
-        $guardar_db = mysqli_query($conexion, $sql_insert);
+        mysqli_query($conexion, "INSERT INTO carrito (id_usuario_fk, id_variante_fk, fecha_agregado) VALUES ('$id_usuario', '$id_variante_fk', NOW())");
 
-        if (!$guardar_db) {
-            echo json_encode(['status' => 'error', 'mensaje' => 'Error al insertar en la tabla carrito: ' . mysqli_error($conexion)]);
-            exit();
-        }
+        mysqli_query($conexion, "UPDATE producto_variante SET vendido = 'S' WHERE id_variante = '$id_variante_fk'");
 
         echo json_encode([
             'status' => 'success',

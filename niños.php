@@ -279,6 +279,7 @@ document.querySelectorAll('form[action="agregar_carrito.php"]').forEach(form => 
         .then(data => {
             if (data.status === 'success') {
                 actualizarMenuCarrito(data.carrito);
+                location.reload()
             } else {
                 alert(data.mensaje);
             }

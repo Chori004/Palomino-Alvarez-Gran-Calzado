@@ -40,7 +40,6 @@ CREATE TABLE `detalle_reserva` (
 
 LOCK TABLES `detalle_reserva` WRITE;
 /*!40000 ALTER TABLE `detalle_reserva` DISABLE KEYS */;
-INSERT INTO `detalle_reserva` VALUES (1,1,23),(2,1,24);
 /*!40000 ALTER TABLE `detalle_reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-05  9:15:54
+-- Dump completed on 2026-06-12  9:11:30
