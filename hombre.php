@@ -72,6 +72,7 @@ $consulta_productos = mysqli_query($conexion, "SELECT * FROM productos WHERE act
                     . $_SESSION['usuario_logueado'] .
                     '</span>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="mis_pedidos.php">Mis pedidos</a></li>
                         <li><a class="dropdown-item" href="login.php">Cambiar de cuenta</a></li>
                         <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                     </ul>
