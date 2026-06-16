@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `transporte`;
 CREATE TABLE `transporte` (
   `id_transporte` int(11) NOT NULL AUTO_INCREMENT,
   `empresa` varchar(45) NOT NULL,
+  `costo` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id_transporte`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `transporte` (
 
 LOCK TABLES `transporte` WRITE;
 /*!40000 ALTER TABLE `transporte` DISABLE KEYS */;
-INSERT INTO `transporte` VALUES (1,'Correo Argentino'),(2,'Andreani'),(3,'OCA');
+INSERT INTO `transporte` VALUES (1,'Correo Argentino',4500.00),(2,'Andreani',3800.00),(3,'OCA',3500.00);
 /*!40000 ALTER TABLE `transporte` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-12  9:11:30
+-- Dump completed on 2026-06-16 18:28:42

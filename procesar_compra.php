@@ -24,49 +24,55 @@ if ($zona == "Fuera de CABA" && $metodo_entrega == "domicilio") {
     }
     $codigo_seguimiento = generarCodigo();
 
-    if ($metodo_entrega == "retiro") {
-        mysqli_query($conexion, "INSERT INTO reserva (id_usuario_fk, estado_reserva, codigo_seguimiento) 
-                                  VALUES ('$id_usuario', 'pendiente', '$codigo_seguimiento')");
-        $id_reserva = mysqli_insert_id($conexion);
+    if ($metodo_entrega == "domicilio" && !isset($_POST['transporte'])) {
+    $mensaje_error = "Por favor seleccione una empresa de transporte.";
+} elseif ($metodo_entrega == "retiro") {
+    mysqli_query($conexion, "INSERT INTO reserva (id_usuario_fk, estado_reserva, codigo_seguimiento) 
+                              VALUES ('$id_usuario', 'pendiente', '$codigo_seguimiento')");
+    $id_reserva = mysqli_insert_id($conexion);
 
-        foreach ($_SESSION['carrito'] as $clave => $item) {
-            $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante 
-                                                          WHERE id_producto_fk = '" . $item['id_producto'] . "' 
-                                                          AND talle = '" . $item['talle'] . "' 
-                                                          AND vendido = 'S' LIMIT 1");
-            $variante = mysqli_fetch_assoc($consulta_variante);
-            if ($variante) {
-                mysqli_query($conexion, "INSERT INTO detalle_reserva (id_reserva_fk, id_variante_fk) 
-                                         VALUES ('$id_reserva', '" . $variante['id_variante'] . "')");
-            }
-        }
-
-    } else {
-        $id_transporte = $_POST['transporte'];
-        $fecha_entrega = date('Y-m-d', strtotime('+7 days'));
-
-        mysqli_query($conexion, "INSERT INTO pedido (estado_pedido, empresa_transporte_fk, fecha_entrega_estimada, id_usuario_fk) 
-                                VALUES ('pendiente', '$id_transporte', '$fecha_entrega', '$id_usuario')");
-        $id_pedido = mysqli_insert_id($conexion);
-
-        foreach ($_SESSION['carrito'] as $clave => $item) {
-            $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante 
-                                                        WHERE id_producto_fk = '" . $item['id_producto'] . "' 
-                                                        AND talle = '" . $item['talle'] . "' 
-                                                        AND vendido = 'S' LIMIT 1");
-            $variante = mysqli_fetch_assoc($consulta_variante);
-            if ($variante) {
-                mysqli_query($conexion, "INSERT INTO detalle_pedido (id_pedido_fk, id_variante_fk) 
-                                        VALUES ('$id_pedido', '" . $variante['id_variante'] . "')");
-            }
+    foreach ($_SESSION['carrito'] as $clave => $item) {
+        $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante 
+                                                      WHERE id_producto_fk = '" . $item['id_producto'] . "' 
+                                                      AND talle = '" . $item['talle'] . "' 
+                                                      AND vendido = 'S' LIMIT 1");
+        $variante = mysqli_fetch_assoc($consulta_variante);
+        if ($variante) {
+            mysqli_query($conexion, "INSERT INTO detalle_reserva (id_reserva_fk, id_variante_fk) 
+                                     VALUES ('$id_reserva', '" . $variante['id_variante'] . "')");
         }
     }
 
     mysqli_query($conexion, "DELETE FROM carrito WHERE id_usuario_fk = '$id_usuario'");
     unset($_SESSION['carrito']);
-
     header("Location: mis_pedidos.php");
     exit();
+
+} else {
+    $id_transporte = $_POST['transporte'];
+    $fecha_entrega = date('Y-m-d', strtotime('+7 days'));
+
+    mysqli_query($conexion, "INSERT INTO pedido (estado_pedido, empresa_transporte_fk, fecha_entrega_estimada, id_usuario_fk) 
+                            VALUES ('pendiente', '$id_transporte', '$fecha_entrega', '$id_usuario')");
+    $id_pedido = mysqli_insert_id($conexion);
+
+    foreach ($_SESSION['carrito'] as $clave => $item) {
+        $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante 
+                                                    WHERE id_producto_fk = '" . $item['id_producto'] . "' 
+                                                    AND talle = '" . $item['talle'] . "' 
+                                                    AND vendido = 'S' LIMIT 1");
+        $variante = mysqli_fetch_assoc($consulta_variante);
+        if ($variante) {
+            mysqli_query($conexion, "INSERT INTO detalle_pedido (id_pedido_fk, id_variante_fk) 
+                                    VALUES ('$id_pedido', '" . $variante['id_variante'] . "')");
+        }
+    }
+
+    mysqli_query($conexion, "DELETE FROM carrito WHERE id_usuario_fk = '$id_usuario'");
+    unset($_SESSION['carrito']);
+    header("Location: mis_pedidos.php");
+    exit();
+}
 }
 ?>
 

@@ -82,10 +82,10 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
     <div class="card shadow-sm p-4 mb-3 seccion-envio">
         <h5>Envío a Domicilio</h5>
         <label class="form-label">Dirección de envío</label>
-        <input type="text" name="direccion_envio" class="form-control" value="<?= $usuario['direccion']?> " required>
+        <input type="text" name="direccion_envio" class="form-control" value="<?= $usuario['direccion']?> " >
         <?php while($transporte = mysqli_fetch_assoc($consulta_transporte)) { ?>
             <div class="form-check p-2 mb-2">
-                <input type="radio" class="form-check-input" name="transporte" id="transporte_<?= $transporte['id_transporte'] ?>" value="<?= $transporte['id_transporte'] ?>" required>
+                <input type="radio" class="form-check-input" name="transporte" id="transporte_<?= $transporte['id_transporte'] ?>" value="<?= $transporte['id_transporte'] ?>" >
                 <label class="form-check-label w-100" for="transporte_<?= $transporte['id_transporte'] ?>">
                     <?= $transporte['empresa'] ?> - $<?= number_format($transporte['costo'], 0, ',', '.') ?>
                 </label>
@@ -98,15 +98,15 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
         <div class="row g-3">
             <div class="col-12">
                 <label class="form-label">Número de tarjeta</label>
-                <input type="text" name="numero_tarjeta" class="form-control" maxlength="16" oninput="soloNumeros(this)" required>
+                <input type="text" name="numero_tarjeta" class="form-control" value="<?= $_POST['numero_tarjeta'] ?? '' ?>" minlength="16" maxlength="16" oninput="soloNumeros(this)" required>
             </div>
             <div class="col-6">
                 <label class="form-label">Vencimiento</label>
-                <input type="text" name="vencimiento" class="form-control" placeholder="MM/AA" maxlength="5" oninput="formatoVencimiento(this)" required>
+                <input type="text" name="vencimiento" class="form-control" value="<?= $_POST['vencimiento'] ?? '' ?>" placeholder="MM/AA"  minlength="5" maxlength="5" oninput="formatoVencimiento(this)" required>
             </div>
             <div class="col-6">
                 <label class="form-label">CVV</label>
-                <input type="text" name="cvv" class="form-control" maxlength="3" oninput="soloNumeros(this)" required>
+                <input type="text" name="cvv" class="form-control" value="<?= $_POST['cvv'] ?? '' ?>" minlength="3" maxlength="3" oninput="soloNumeros(this)" required>
             </div>
             <div class="col-12">
                 <label class="form-label">Titular de la tarjeta</label>
@@ -159,9 +159,18 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
         }
         function formatoVencimiento(input) {
             let valor = input.value.replace(/[^0-9]/g, '');
+            
+            if (valor.length >= 2) {
+                let mes = parseInt(valor.slice(0, 2));
+                if (mes > 12) mes = 12;
+                if (mes < 1 && valor.length == 2) mes = '01';
+                valor = String(mes).padStart(2, '0') + valor.slice(2, 4);
+            }
+            
             if (valor.length > 2) {
                 valor = valor.slice(0, 2) + '/' + valor.slice(2, 4);
             }
+            
             input.value = valor;
         }
     </script>

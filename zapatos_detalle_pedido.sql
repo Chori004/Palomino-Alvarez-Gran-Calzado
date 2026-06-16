@@ -31,7 +31,7 @@ CREATE TABLE `detalle_pedido` (
   KEY `id_pedido_fk` (`id_pedido_fk`),
   CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_variante_fk`) REFERENCES `producto_variante` (`id_variante`),
   CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`id_pedido_fk`) REFERENCES `pedido` (`id_pedido`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,6 @@ CREATE TABLE `detalle_pedido` (
 
 LOCK TABLES `detalle_pedido` WRITE;
 /*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
-INSERT INTO `detalle_pedido` VALUES (1,1,20),(2,1,21);
 /*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-12  9:11:30
+-- Dump completed on 2026-06-16 18:28:41

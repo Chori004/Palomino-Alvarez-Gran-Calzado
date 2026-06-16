@@ -136,7 +136,7 @@ $productos = mysqli_query($conexion, $sql);
           <img src="<?php echo $producto['imagen']; ?>" class="card-img-top img-card" alt="...">
           <div class="card-body">
             <h6 class="card-title"><?php echo $producto['nombre_producto']; ?></h6>
-            <p class="card-text">$<?php echo $producto['precio']; ?></p>
+            <p class="card-text">$<?php echo number_format($producto['precio'], 0, ',', '.'); ?></p>
             <a href="hombre.php" class="btn btn-dark btn-sm">Ver más</a>
           </div>
         </div>

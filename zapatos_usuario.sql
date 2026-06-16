@@ -29,12 +29,12 @@ CREATE TABLE `usuario` (
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `telefono` decimal(14,0) NOT NULL,
-  `direccion` varchar(60) NOT NULL,
-  `provincia` varchar(50) NOT NULL,
-  `localidad` varchar(50) NOT NULL,
-  `codigo_postal` varchar(10) NOT NULL,
-  `fecha_nacimiento` date NOT NULL,
+  `telefono` decimal(14,0) DEFAULT NULL,
+  `direccion` varchar(60) DEFAULT NULL,
+  `provincia` varchar(50) DEFAULT NULL,
+  `localidad` varchar(50) DEFAULT NULL,
+  `codigo_postal` varchar(10) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
   `nombre_usuario` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `id_rol_fk` int(11) NOT NULL DEFAULT 3,
@@ -48,7 +48,7 @@ CREATE TABLE `usuario` (
   KEY `fk_usuario_rol` (`id_rol_fk`),
   CONSTRAINT `fk_usuario_rol` FOREIGN KEY (`id_rol_fk`) REFERENCES `rol` (`id_rol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_tipodocumento_fk`) REFERENCES `tipo_documento` (`id_tipodocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +57,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,40983754,1,'Felipe','Alvarez','felipealvarez.004@gmail.com',1156608792,'Cabello 3462','CABA','Palermo','1425','2004-09-16','alvarezfelipe__','felipe',3,'S'),(2,47246098,1,'Fabio','Palomino','fabiopalomino@gmail.com',1167729385,'Las Heras 2001','CABA','Palermo','1425','2003-02-24','fabiopalomino_','fabiopalom1',1,'S');
+INSERT INTO `usuario` VALUES (1,40983754,1,'Felipe','Alvarez','felipealvarez.004@gmail.com',1156608792,'Cabello 3462','CABA','Palermo','1425','2004-09-16','alvarezfelipe__','felipe',3,'S'),(2,47246098,1,'Fabio','Palomino','fabiopalomino@gmail.com',1167729385,'Las Heras 2001','CABA','Palermo','1425','2003-02-24','fabiopalomino_','fabiopalom1',1,'S'),(3,0,1,'admin','admin','admin',0,'admin','admin','admin','admin','0000-00-00','admin','admin',3,'S');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -70,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-12  9:11:30
+-- Dump completed on 2026-06-16 18:28:42

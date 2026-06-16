@@ -5,7 +5,7 @@ if (isset($_POST["usuario"])) {
   $usuario = $_POST["usuario"];
   $contrasena = $_POST["contrasena"];
 
-  $chequeo = mysqli_query($conexion, "SELECT nombre_usuario, password_hash FROM usuario WHERE nombre_usuario = '$usuario'");
+  $chequeo = mysqli_query($conexion, "SELECT nombre_usuario, password_hash FROM usuario WHERE BINARY nombre_usuario = '$usuario'");
   $fila_usuario = mysqli_fetch_array($chequeo);
 
   if ($usuario == "admin" and $contrasena == "admin") {
@@ -46,7 +46,7 @@ if (isset($_POST["usuario"])) {
 
           <div class="mb-3">
             <label for="usuario" class="form-label fw-semibold text-secondary">Nombre de usuario</label>
-            <input type="text" name="usuario" id="usuario" class="form-control" value="<?= $_POST['usuario'] ?? '' ?>" placeholder="ejemplo@correo.com">
+            <input type="text" name="usuario" id="usuario" class="form-control" value="<?= $_POST['usuario'] ?? '' ?>">
           </div>
           
           <div class="mb-4">
