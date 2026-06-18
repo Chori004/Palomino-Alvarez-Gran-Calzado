@@ -98,15 +98,15 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
         <div class="row g-3">
             <div class="col-12">
                 <label class="form-label">Número de tarjeta</label>
-                <input type="text" name="numero_tarjeta" class="form-control" value="<?= $_POST['numero_tarjeta'] ?? '' ?>" minlength="16" maxlength="16" oninput="soloNumeros(this)" required>
+                <input type="text" name="numero_tarjeta" class="form-control" value="<?= $_POST['numero_tarjeta'] ?? '' ?>"  pattern="\d{16}" maxlength="16" oninput="soloNumeros(this)" required>
             </div>
             <div class="col-6">
                 <label class="form-label">Vencimiento</label>
-                <input type="text" name="vencimiento" class="form-control" value="<?= $_POST['vencimiento'] ?? '' ?>" placeholder="MM/AA"  minlength="5" maxlength="5" oninput="formatoVencimiento(this)" required>
+                <input type="text" name="vencimiento" class="form-control" value="<?= $_POST['vencimiento'] ?? '' ?>" placeholder="MM/AA"  pattern="\d{2}/\d{2}" maxlength="5" oninput="formatoVencimiento(this)" required>
             </div>
             <div class="col-6">
                 <label class="form-label">CVV</label>
-                <input type="text" name="cvv" class="form-control" value="<?= $_POST['cvv'] ?? '' ?>" minlength="3" maxlength="3" oninput="soloNumeros(this)" required>
+                <input type="text" name="cvv" class="form-control" value="<?= $_POST['cvv'] ?? '' ?>" pattern="\d{3}" maxlength="3" oninput="soloNumeros(this)" required>
             </div>
             <div class="col-12">
                 <label class="form-label">Titular de la tarjeta</label>
