@@ -15,12 +15,12 @@ $usuario_data = mysqli_fetch_array($consulta_user);
 if ($usuario_data) {
     $id_usuario = $usuario_data['id_usuario'];
 
-    $sql_carrito_db = "SELECT p.id_producto, p.nombre_producto, p.precio, p.imagen, pv.talle, COUNT(c.id_variante_fk) as cantidad
+    $sql_carrito_db = "SELECT p.id_producto, p.nombre_producto, p.precio, p.imagen, pv.talle, COUNT(c.id_carrito) as cantidad
                        FROM carrito c
                        INNER JOIN producto_variante pv ON c.id_variante_fk = pv.id_variante
                        INNER JOIN productos p ON pv.id_producto_fk = p.id_producto
                        WHERE c.id_usuario_fk = '$id_usuario'
-                       GROUP BY c.id_variante_fk";
+                       GROUP BY p.id_producto, pv.talle";
                        
     $resultado_db = mysqli_query($conexion, $sql_carrito_db);
 

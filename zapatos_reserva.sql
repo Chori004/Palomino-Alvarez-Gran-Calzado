@@ -28,11 +28,11 @@ CREATE TABLE `reserva` (
   `id_usuario_fk` int(11) NOT NULL,
   `estado_reserva` enum('pendiente','cancelado','retirado','expirado') DEFAULT 'pendiente',
   `fecha_expiracion` datetime DEFAULT (current_timestamp() + interval 7 day),
-  `codigo_seguimientio` varchar(45) NOT NULL,
+  `codigo_seguimiento` varchar(45) NOT NULL,
   PRIMARY KEY (`id_reserva`),
   KEY `id_usuario_fk` (`id_usuario_fk`),
   CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario_fk`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-16 18:28:42
+-- Dump completed on 2026-06-19 11:20:34

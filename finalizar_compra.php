@@ -58,15 +58,15 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
         <div class="row g-3">
             <div class="col-12 col-md-6">
                 <label class="form-label">Nombre</label>
-                <input type="text" name="nombre_facturacion" class="form-control" value="<?= $usuario['nombre'] ?>" required>
+                <input type="text" name="nombre_facturacion" class="form-control" oninput="soloLetras(this)" value="<?= $usuario['nombre'] ?>" required>
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label">Apellido</label>
-                <input type="text" name="apellido_facturacion" class="form-control" value="<?= $usuario['apellido'] ?>" required>
+                <input type="text" name="apellido_facturacion" class="form-control" oninput="soloLetras(this)" value="<?= $usuario['apellido'] ?>" required>
             </div>
             <div class="col-12">
                 <label class="form-label">Dirección de facturación</label>
-                <input type="text" name="direccion_facturacion" class="form-control" value="<?= $usuario['direccion'] ?>" required>
+                <input type="text" name="direccion_facturacion" class="form-control" oninput="soloLetrasYNumeros(this)" value="<?= $usuario['direccion'] ?>" required>
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label">Zona</label>
@@ -82,7 +82,7 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
     <div class="card shadow-sm p-4 mb-3 seccion-envio">
         <h5>Envío a Domicilio</h5>
         <label class="form-label">Dirección de envío</label>
-        <input type="text" name="direccion_envio" class="form-control" value="<?= $usuario['direccion']?> " >
+        <input type="text" name="direccion_envio" class="form-control" oninput="soloLetrasYNumeros(this)" value="<?= $usuario['direccion']?> " >
         <?php while($transporte = mysqli_fetch_assoc($consulta_transporte)) { ?>
             <div class="form-check p-2 mb-2">
                 <input type="radio" class="form-check-input" name="transporte" id="transporte_<?= $transporte['id_transporte'] ?>" value="<?= $transporte['id_transporte'] ?>" >
@@ -110,7 +110,7 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
             </div>
             <div class="col-12">
                 <label class="form-label">Titular de la tarjeta</label>
-                <input type="text" name="titular_tarjeta" class="form-control" value="<?= $usuario['nombre'] . ' ' . $usuario['apellido'] ?>" required>
+                <input type="text" name="titular_tarjeta" class="form-control" oninput="soloLetras(this)" value="<?= $usuario['nombre'] . ' ' . $usuario['apellido'] ?>" required>
             </div>
         </div>
     </div>
@@ -156,6 +156,12 @@ $consulta_transporte = mysqli_query($conexion, "SELECT * FROM transporte");
     <script>
         function soloNumeros(input) {
             input.value = input.value.replace(/[^0-9]/g, '');
+        }
+        function soloLetras(input) {
+            input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ' ]/g, '');
+        }
+        function soloLetrasYNumeros(input) {
+            input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ' 0-9]/g, '');
         }
         function formatoVencimiento(input) {
             let valor = input.value.replace(/[^0-9]/g, '');

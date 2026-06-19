@@ -34,7 +34,7 @@ CREATE TABLE `pedido` (
   KEY `empresa_transporte_fk` (`empresa_transporte_fk`),
   CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_usuario_fk`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`empresa_transporte_fk`) REFERENCES `transporte` (`id_transporte`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-16 18:28:41
+-- Dump completed on 2026-06-19 11:20:34

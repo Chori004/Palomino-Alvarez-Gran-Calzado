@@ -162,9 +162,15 @@ $productos = mysqli_query($conexion, $sql);
       
       <div class="col-12 col-md-3 mb-4 mb-md-0">
         <div class="px-2">
+          <form>
           <label for="exampleFormControlInput1" class="form-label mb-2">Ingrese su email</label>
-          <input type="email" class="form-control mb-2" id="exampleFormControlInput1" placeholder="ejemplo@ejemplo.com">
+          <input type="email" class="form-control mb-2" name="mail" id="exampleFormControlInput1" placeholder="ejemplo@ejemplo.com">
           <button type="submit" class="btn btn-outline-light btn-sm w-100">Enviar</button>
+          </form>
+          <?php if (isset($_POST['mail'])) {
+            echo "<div class='alert alert-success mt-2 p-2 small text-center'>¡Ha sido agregado a nuestros contactos!</div>";
+          }
+          ?>
         </div>
       </div>
       

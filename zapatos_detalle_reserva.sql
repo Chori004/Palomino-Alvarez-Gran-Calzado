@@ -31,7 +31,7 @@ CREATE TABLE `detalle_reserva` (
   KEY `id_reserva_fk` (`id_reserva_fk`),
   CONSTRAINT `detalle_reserva_ibfk_1` FOREIGN KEY (`id_variante_fk`) REFERENCES `producto_variante` (`id_variante`),
   CONSTRAINT `detalle_reserva_ibfk_2` FOREIGN KEY (`id_reserva_fk`) REFERENCES `reserva` (`id_reserva`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-16 18:28:41
+-- Dump completed on 2026-06-19 11:20:34
