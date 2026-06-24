@@ -40,12 +40,15 @@ nav a{
 
 footer{
     color: white;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
     margin-bottom: 0;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+#medio_pago {
+    width: 100%;
 }
 .columna_1{
     display: grid;

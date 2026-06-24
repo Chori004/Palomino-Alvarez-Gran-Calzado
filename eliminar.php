@@ -4,10 +4,10 @@ include('conexion.php');
 
 $id = $_GET['id'];
 
-$sql = "DELETE FROM productos WHERE id='$id_producto'";
+$sql = "UPDATE productos SET activo='N' WHERE id_producto='$id'";
 
 mysqli_query($conexion, $sql);
 
-header('Location: index.php');
+header('Location: productos.php');
 
 ?>
