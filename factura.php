@@ -2,7 +2,7 @@
 include("conexion.php");
 
 
-$resultado_factura = mysqli_query($conexion, "SELECT factura.id_factura, factura.fecha_factura, usuario.id_usuario, usuario.nombre, usuario.apellido FROM factura
+$resultado_factura = mysqli_query($conexion, "SELECT factura.id_factura, factura.fecha_factura, factura.id_pedido_fk, factura.id_reserva_fk, usuario.id_usuario, usuario.nombre, usuario.apellido FROM factura
                                         JOIN usuario ON factura.id_usuario_fk = usuario.id_usuario");
 ?>
 
@@ -32,6 +32,13 @@ $resultado_factura = mysqli_query($conexion, "SELECT factura.id_factura, factura
         | <a href="eliminar_factura.php?id=<?= $factura['id_factura'] ?>">Eliminar</a>
     </h3>
     <p>Fecha de factura: <?= $factura['fecha_factura'] ?></p>
+    <p>
+        <?php if ($factura['id_pedido_fk']): ?>
+            Pedido #<?= $factura['id_pedido_fk'] ?>
+        <?php elseif ($factura['id_reserva_fk']): ?>
+            Reserva #<?= $factura['id_reserva_fk'] ?>
+        <?php endif; ?>
+    </p>
     <table>
         <tr>
             <th>Producto</th>

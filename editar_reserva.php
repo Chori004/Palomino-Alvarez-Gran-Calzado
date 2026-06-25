@@ -8,6 +8,16 @@ $reserva = mysqli_fetch_assoc($resultado);
 if(isset($_POST["guardar"])){
     $estado = $_POST["estado_reserva"];
     mysqli_query($conexion, "UPDATE reserva SET estado_reserva = '$estado' WHERE id_reserva = '$id'");
+    if ($estado == "retirado") {
+    mysqli_query($conexion, "INSERT INTO factura (id_usuario_fk, id_reserva_fk) 
+                          SELECT id_usuario_fk, '$id' FROM reserva WHERE id_reserva = '$id'");
+    $id_factura = mysqli_insert_id($conexion);
+    $consulta_detalle = mysqli_query($conexion, "SELECT id_variante_fk FROM detalle_reserva WHERE id_reserva_fk = '$id'");
+    while ($detalle = mysqli_fetch_assoc($consulta_detalle)) {
+        mysqli_query($conexion, "INSERT INTO detalle_factura (id_factura_fk, id_producto_variante_fk) 
+                                 VALUES ('$id_factura', '" . $detalle['id_variante_fk'] . "')");
+    }
+}
     header("Location: reserva.php");
     exit();
 }

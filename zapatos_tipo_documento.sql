@@ -27,7 +27,7 @@ CREATE TABLE `tipo_documento` (
   `tipo_documento` varchar(45) DEFAULT NULL,
   `abreviatura` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_tipodocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-19 11:20:34
+-- Dump completed on 2026-06-24 21:50:39

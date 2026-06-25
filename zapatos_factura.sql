@@ -26,10 +26,16 @@ CREATE TABLE `factura` (
   `id_factura` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_factura` datetime DEFAULT current_timestamp(),
   `id_usuario_fk` int(11) NOT NULL,
+  `id_pedido_fk` int(11) DEFAULT NULL,
+  `id_reserva_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_factura`),
   KEY `id_usuario_bb_idx` (`id_usuario_fk`),
+  KEY `id_pedido_fk` (`id_pedido_fk`),
+  KEY `id_reserva_fk` (`id_reserva_fk`),
+  CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`id_pedido_fk`) REFERENCES `pedido` (`id_pedido`),
+  CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`id_reserva_fk`) REFERENCES `reserva` (`id_reserva`),
   CONSTRAINT `id_usuario_bb` FOREIGN KEY (`id_usuario_fk`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +44,7 @@ CREATE TABLE `factura` (
 
 LOCK TABLES `factura` WRITE;
 /*!40000 ALTER TABLE `factura` DISABLE KEYS */;
-INSERT INTO `factura` VALUES (1,'2026-06-08 21:23:22',1);
+INSERT INTO `factura` VALUES (2,'2026-06-23 17:25:28',1,NULL,5);
 /*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-19 11:20:35
+-- Dump completed on 2026-06-24 21:50:39

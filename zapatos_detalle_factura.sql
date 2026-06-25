@@ -31,7 +31,7 @@ CREATE TABLE `detalle_factura` (
   KEY `id_producto_variante_fk` (`id_producto_variante_fk`),
   CONSTRAINT `detalle_factura_ibfk_1` FOREIGN KEY (`id_factura_fk`) REFERENCES `factura` (`id_factura`),
   CONSTRAINT `detalle_factura_ibfk_2` FOREIGN KEY (`id_producto_variante_fk`) REFERENCES `producto_variante` (`id_variante`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `detalle_factura` (
 
 LOCK TABLES `detalle_factura` WRITE;
 /*!40000 ALTER TABLE `detalle_factura` DISABLE KEYS */;
-INSERT INTO `detalle_factura` VALUES (1,1,20),(2,1,21),(3,1,22),(4,1,25);
+INSERT INTO `detalle_factura` VALUES (5,2,22),(6,2,21);
 /*!40000 ALTER TABLE `detalle_factura` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-19 11:20:34
+-- Dump completed on 2026-06-24 21:50:38

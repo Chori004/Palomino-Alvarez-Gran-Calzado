@@ -32,10 +32,6 @@ if ($zona == "Fuera de CABA" && $metodo_entrega == "domicilio") {
                                   VALUES ('$id_usuario', 'pendiente', '$codigo_seguimiento')");
         $id_reserva = mysqli_insert_id($conexion);
 
-        // Factura
-        mysqli_query($conexion, "INSERT INTO factura (id_usuario_fk) VALUES ('$id_usuario')");
-        $id_factura = mysqli_insert_id($conexion);
-
         foreach ($_SESSION['carrito'] as $clave => $item) {
             $consulta_variante = mysqli_query($conexion, "SELECT id_variante FROM producto_variante 
                                                           WHERE id_producto_fk = '" . $item['id_producto'] . "' 
@@ -45,8 +41,6 @@ if ($zona == "Fuera de CABA" && $metodo_entrega == "domicilio") {
             if ($variante) {
                 mysqli_query($conexion, "INSERT INTO detalle_reserva (id_reserva_fk, id_variante_fk) 
                                          VALUES ('$id_reserva', '" . $variante['id_variante'] . "')");
-                mysqli_query($conexion, "INSERT INTO detalle_factura (id_factura_fk, id_producto_variante_fk) 
-                                         VALUES ('$id_factura', '" . $variante['id_variante'] . "')");
             }
         }
 
@@ -63,8 +57,7 @@ if ($zona == "Fuera de CABA" && $metodo_entrega == "domicilio") {
                                 VALUES ('pendiente', '$id_transporte', '$fecha_entrega', '$id_usuario')");
         $id_pedido = mysqli_insert_id($conexion);
 
-        // Factura
-        mysqli_query($conexion, "INSERT INTO factura (id_usuario_fk) VALUES ('$id_usuario')");
+        mysqli_query($conexion, "INSERT INTO factura (id_usuario_fk, id_pedido_fk) VALUES ('$id_usuario', '$id_pedido')");
         $id_factura = mysqli_insert_id($conexion);
 
         foreach ($_SESSION['carrito'] as $clave => $item) {
