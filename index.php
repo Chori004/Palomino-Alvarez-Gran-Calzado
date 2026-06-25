@@ -22,7 +22,7 @@ $productos = mysqli_query($conexion, $sql);
     <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #9e8466;" data-bs-theme="light">
     <div class="container-fluid">
-      <a class="navbar-brand fs-3 fw-bold" href="index.html">Palomino-Alvarez Gran Calzado</a>
+      <a class="navbar-brand fs-3 fw-bold" href="index.php">Palomino-Alvarez Gran Calzado</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
